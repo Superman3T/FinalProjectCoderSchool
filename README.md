@@ -1,6 +1,6 @@
 # FinalProjectCoderSchool
 
-The wideframe:
+The wireframe:
 
 <img src='http://i.imgur.com/hnMwj2k.png' title='Image 1' width='' alt='Video Walkthrough' />
 
