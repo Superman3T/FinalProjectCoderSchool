@@ -1,5 +1,7 @@
 package com.tam.joblinks.helpers;
 
+import android.text.TextUtils;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -7,6 +9,13 @@ import java.security.NoSuchAlgorithmException;
  * Created by toan on 4/10/2016.
  */
 public class StringHelper {
+
+    public static boolean isNullOrEmpty(String input) {
+        if (TextUtils.isEmpty(input)) {
+            return true;
+        }
+        return false;
+    }
 
     public static final String md5(String input) {
         final String MD5 = "MD5";
