@@ -7,7 +7,7 @@
 The following features will be implemented in the first version:
 
 * [ ]	User can login, logout, sign up.
-* [ ]	User can search new job.
+* [ ]	User can search new jobs.
 * [ ] User can create profile (CV).
   * [ ] User can use camera to take a avatar or use picture in gallery.
 * [ ] User can view saved, applied, viewed jobs.
