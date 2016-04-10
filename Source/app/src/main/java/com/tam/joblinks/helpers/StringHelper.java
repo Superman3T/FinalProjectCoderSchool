@@ -7,8 +7,8 @@ import java.security.NoSuchAlgorithmException;
  * Created by toan on 4/10/2016.
  */
 public class StringHelper {
-    
-    public static final String hashMd5(String input) {
+
+    public static final String md5(String input) {
         final String MD5 = "MD5";
         try {
             // Create MD5 Hash
