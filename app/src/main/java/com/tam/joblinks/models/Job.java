@@ -1,4 +1,4 @@
-package com.tam.joblinks.model;
+package com.tam.joblinks.models;
 
 /**
  * Created by toan on 4/13/2016.

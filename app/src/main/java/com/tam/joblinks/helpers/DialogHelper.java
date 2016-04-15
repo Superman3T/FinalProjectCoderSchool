@@ -20,7 +20,15 @@ public class DialogHelper {
         }
         builder.setMessage(message)
                 .setPositiveButton("Yes", yesAction)
-            .setNegativeButton("No", noAction)
-            .show();
+                .setNegativeButton("No", noAction)
+                .show();
+    }
+
+    public static void showErrorMessage(Context context, String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage("Server reported an error: " + message)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(android.R.string.ok, null)
+                .show();
     }
 }

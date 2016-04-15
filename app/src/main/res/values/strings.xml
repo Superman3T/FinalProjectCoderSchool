@@ -3,7 +3,7 @@
     <string name="title_activity_login">Sign in</string>
     <string name="title_activity_register_account">Resgister</string>
     <string name="title_activity_search_job">Fiter</string>
-    <!-- Strings related to login -->
+    <!-- Strings related to loginAsync -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="prompt_first_name">First name</string>

@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.tam.joblinks.R;
-import com.tam.joblinks.model.Job;
+import com.tam.joblinks.models.Job;
 
 import java.util.List;
 

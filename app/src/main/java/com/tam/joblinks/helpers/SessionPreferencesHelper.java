@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
 import com.tam.joblinks.activities.LoginActivity;
-import com.tam.joblinks.model.ViewUserLogin;
+import com.tam.joblinks.models.ViewUserLogin;
 
 /**
  * Created by toan on 4/12/2016.
@@ -30,6 +30,7 @@ public class SessionPreferencesHelper {
 
     // Email address (make variable public to access from outside)
     public static final String KEY_EMAIL = "email";
+
     // Shared pref mode
     int PRIVATE_MODE = 0;
 
@@ -40,13 +41,13 @@ public class SessionPreferencesHelper {
     }
 
     /**
-     * Create login session
-     * @param name
+     * Create loginAsync session
+     * @param fullName
      * @param email
      */
-    public void createLoginSession(String name, String email) {
+    public void createLoginSession(String fullName, String email) {
         editor.putBoolean(IS_LOGGED_IN, true);
-        editor.putString(KEY_NAME, name);
+        editor.putString(KEY_NAME, fullName);
         editor.putString(KEY_EMAIL, email);
         editor.commit();
     }
@@ -71,8 +72,8 @@ public class SessionPreferencesHelper {
      */
     public ViewUserLogin getUserDetails() {
         ViewUserLogin user = new ViewUserLogin();
-        user.setEmail(this.sharedRef.getString(KEY_EMAIL, null));
-        user.setName(this.sharedRef.getString(KEY_NAME, null));
+        user.email = this.sharedRef.getString(KEY_EMAIL, null);
+        //user.name = this.sharedRef.getString(KEY_NAME, null);
         return user;
     }
 
