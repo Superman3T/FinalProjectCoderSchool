@@ -177,4 +177,9 @@ public class UserRepository implements UserRepositoryInterface {
     public void setCurrentUser(BackendlessUser user) {
         Backendless.UserService.setCurrentUser(user);
     }
+
+    @Override
+    public void restorePasswordAsync(String email, ProgressDialogCallBack<Void> callBack) {
+        Backendless.UserService.restorePassword(email, callBack);
+    }
 }

@@ -23,5 +23,6 @@ public interface UserRepositoryInterface {
     void findById(String currentUserId, ProgressDialogCallBack<BackendlessUser> callBack);
     BackendlessUser getCurrentUser();
     void setCurrentUser(BackendlessUser user);
+    void restorePasswordAsync(String email, ProgressDialogCallBack<Void> callBack);
 
 }
