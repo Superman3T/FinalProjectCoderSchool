@@ -7,12 +7,13 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.backendless.BackendlessUser;
 import com.backendless.exceptions.BackendlessFault;
 import com.tam.joblinks.R;
+import com.tam.joblinks.helpers.MessageHelper;
 import com.tam.joblinks.helpers.ProgressDialogCallBack;
+import com.tam.joblinks.helpers.Validator;
 import com.tam.joblinks.interfaces.UserRepositoryInterface;
 import com.tam.joblinks.models.ViewUserResgister;
 import com.tam.joblinks.repositories.UserRepository;
@@ -95,6 +96,12 @@ public class RegisterAccountActivity extends AppCompatActivity {
             showToast(getString(R.string.email_required));
             tvRegisterEmail.requestFocus();
             return false;
+        } else {
+            if (!Validator.isValidEmail(email)) {
+                showToast(getString(R.string.invalid_email));
+                tvRegisterEmail.requestFocus();
+                return false;
+            }
         }
         if (firstName.isEmpty()) {
             showToast(getString(R.string.first_name_required));
@@ -125,14 +132,17 @@ public class RegisterAccountActivity extends AppCompatActivity {
     }
 
     private boolean isValidName(String name) {
+        if (name.length() < 2) {
+            showToast(getString(R.string.invalid_length_name));
+            return false;
+        }
         if (Pattern.matches("[a-zA-Z]+", name)) {
             return true;
         }
         return false;
     }
 
-
     private void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        MessageHelper.showToast(this, message);
     }
 }
