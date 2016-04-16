@@ -9,6 +9,7 @@ public class User extends BackendlessUser {
 
     public static final String FIRST_NAME_KEY = "first_name";
     public static final String LAST_NAME_KEY = "last_name";
+    public static final String MAC_ADDRESS_KEY = "mac_address";
 
     public String getFirstName() {
         return (String) super.getProperty(FIRST_NAME_KEY);
@@ -32,5 +33,9 @@ public class User extends BackendlessUser {
 
     public void setName(String name) {
         super.setProperty("name", name);
+    }
+
+    public void setMacAddress(String macAddress) {
+        super.setProperty(MAC_ADDRESS_KEY, macAddress);
     }
 }

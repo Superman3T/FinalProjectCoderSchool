@@ -31,5 +31,10 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="email_required">Email cannot be empty.</string>
+    <string name="first_name_required">First name cannot be empty.</string>
+    <string name="last_name_required">Last name cannot be empty.</string>
+    <string name="password_required">Password cannot be empty.</string>
+    <string name="invalid_name">name is invalid.</string>
 </resources>

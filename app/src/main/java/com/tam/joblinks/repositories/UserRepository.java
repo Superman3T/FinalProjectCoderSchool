@@ -10,8 +10,10 @@ import com.backendless.exceptions.BackendlessException;
 import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.local.UserIdStorageFactory;
 import com.tam.joblinks.helpers.DialogHelper;
+import com.tam.joblinks.helpers.NetworkHelper;
 import com.tam.joblinks.helpers.ProgressDialogCallBack;
 import com.tam.joblinks.interfaces.UserRepositoryInterface;
+import com.tam.joblinks.models.User;
 import com.tam.joblinks.models.ViewUserLogin;
 import com.tam.joblinks.models.ViewUserResgister;
 
@@ -98,8 +100,8 @@ public class UserRepository implements UserRepositoryInterface {
         BackendlessUser user = new BackendlessUser();
         user.setEmail(model.email);
         user.setPassword(model.password);
-        user.setProperty(model.FIRST_NAME_KEY, model.firstName);
-        user.setProperty(model.LAST_NAME_KEY, model.lastName);
+        user.setProperty(User.FIRST_NAME_KEY, model.firstName);
+        user.setProperty(User.LAST_NAME_KEY, model.lastName);
         try {
             Backendless.UserService.register(user);
             result = true;
@@ -114,8 +116,8 @@ public class UserRepository implements UserRepositoryInterface {
         BackendlessUser user = new BackendlessUser();
         user.setEmail(model.email);
         user.setPassword(model.password);
-        user.setProperty(model.FIRST_NAME_KEY, model.firstName);
-        user.setProperty(model.LAST_NAME_KEY, model.lastName);
+        user.setProperty(User.FIRST_NAME_KEY, model.firstName);
+        user.setProperty(User.LAST_NAME_KEY, model.lastName);
         Backendless.UserService.register(user, new AsyncCallback<BackendlessUser>() {
             @Override
             public void handleResponse(BackendlessUser response) {
@@ -130,6 +132,18 @@ public class UserRepository implements UserRepositoryInterface {
                 DialogHelper.showErrorMessage(context, fault.getMessage());
             }
         });
+    }
+
+    @Override
+    public void registerAsync(ViewUserResgister model, ProgressDialogCallBack<BackendlessUser> callBack) {
+        User user = new User();
+        user.setEmail(model.email);
+        user.setPassword(model.password);
+        user.setProperty(User.FIRST_NAME_KEY, model.firstName);
+        user.setProperty(User.LAST_NAME_KEY, model.lastName);
+        user.setName(model.firstName);
+        user.setMacAddress(NetworkHelper.getMacAddress(context));
+        Backendless.UserService.register(user, callBack);
     }
 
     @Override

@@ -16,6 +16,7 @@ public interface UserRepositoryInterface {
     void logoutAsync();
     void register(ViewUserResgister model);
     void registerAsync(ViewUserResgister model);
+    void registerAsync(ViewUserResgister model, ProgressDialogCallBack<BackendlessUser> callBack);
     boolean getResult();
     boolean isValidLogin();
     void isValidLogin(ProgressDialogCallBack<Boolean> callBack);
