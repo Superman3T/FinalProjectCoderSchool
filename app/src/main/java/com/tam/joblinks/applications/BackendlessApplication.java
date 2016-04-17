@@ -16,6 +16,7 @@ public class BackendlessApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Backendless.setUrl(SERVER_URL);
         Backendless.initApp(this, APP_ID, SECRET_KEY, APP_VERSION);
     }
 }

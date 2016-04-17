@@ -64,7 +64,28 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/action_sign_in"
                 android:textStyle="bold" />
-
+            <TextView
+                android:id="@+id/tvRegisterLink"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp48"
+                android:layout_marginRight="@dimen/dp4"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:linksClickable="false"
+                android:singleLine="false"
+                android:text="@string/action_register"
+                android:textColor="@android:color/holo_blue_light"
+                android:textSize="@dimen/text_medium"/>
+            <TextView
+                android:id="@+id/tvForgotPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp48"
+                android:layout_marginLeft="@dimen/dp4"
+                android:clickable="true"
+                android:gravity="bottom|right"
+                android:text="@string/action_forgot_password"
+                android:textColor="@android:color/holo_blue_light"
+                android:textSize="@dimen/text_medium"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -7,7 +7,9 @@ public class Job {
     public String title;
     public String company;
     public String city;
-    public String dispalySalary;
+    public String getDisplaySalary() {
+        return String.valueOf(this.salary);
+    }
     public int salary;
 
     public Job() {}

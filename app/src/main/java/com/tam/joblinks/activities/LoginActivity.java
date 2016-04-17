@@ -1,5 +1,6 @@
 package com.tam.joblinks.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
@@ -34,6 +35,12 @@ public class LoginActivity extends AppCompatActivity {
     @Bind(R.id.edLoginPassword)
     EditText edLoginPassword;
 
+    @Bind(R.id.tvRegisterLink)
+    TextView tvRegisterLink;
+
+    @Bind(R.id.tvForgotPassword)
+    TextView tvForgotPassword;
+
     @Bind(R.id.btSignIn)
     Button btSignIn;
 
@@ -63,6 +70,22 @@ public class LoginActivity extends AppCompatActivity {
                     return true;
                 }
                 return false;
+            }
+        });
+
+        tvRegisterLink.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, RegisterAccountActivity.class));
+                finish();
+            }
+        });
+
+        tvForgotPassword.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
+                finish();
             }
         });
 
@@ -119,7 +142,8 @@ public class LoginActivity extends AppCompatActivity {
                 public void handleResponse(BackendlessUser response) {
                     super.handleResponse(response);
 //                    startActivity( new Intent( LoginActivity.this, LoginSuccessActivity.class ) );
-//                    finish();
+                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                    finish();
                 }
             });
         }

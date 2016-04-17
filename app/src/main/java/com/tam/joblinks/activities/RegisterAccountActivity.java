@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.backendless.BackendlessUser;
-import com.backendless.exceptions.BackendlessFault;
 import com.tam.joblinks.R;
 import com.tam.joblinks.helpers.MessageHelper;
 import com.tam.joblinks.helpers.ProgressDialogCallBack;
@@ -79,10 +78,11 @@ public class RegisterAccountActivity extends AppCompatActivity {
                     finish();
                 }
 
-                @Override
-                public void handleFault(BackendlessFault fault) {
-                    super.handleFault(fault);
-                }
+//                @Override
+//                public void handleFault(BackendlessFault fault) {
+//                    super.handleFault(fault);
+//                    //Log.d("registerAsync", "Error code: " + fault.getCode());
+//                }
             });
         }
     }

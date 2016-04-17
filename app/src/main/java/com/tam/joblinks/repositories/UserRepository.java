@@ -1,6 +1,7 @@
 package com.tam.joblinks.repositories;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.backendless.Backendless;
@@ -32,10 +33,8 @@ public class UserRepository implements UserRepositoryInterface {
 
     @Override
     public void login(ViewUserLogin model) {
-        BackendlessUser user;
-
         try {
-            Backendless.UserService.login(model.email, model.password);
+            Backendless.UserService.login(model.email, model.password, model.rememberMe);
             result = true;
         } catch (BackendlessException fault) {
             // login failed, to get the error code, call exception.getFault().getCode()
@@ -118,11 +117,7 @@ public class UserRepository implements UserRepositoryInterface {
 
     @Override
     public void registerAsync(final ViewUserResgister model) {
-        BackendlessUser user = new BackendlessUser();
-        user.setEmail(model.email);
-        user.setPassword(model.password);
-        user.setProperty(User.FIRST_NAME_KEY, model.firstName);
-        user.setProperty(User.LAST_NAME_KEY, model.lastName);
+        User user = createUser(model);
         Backendless.UserService.register(user, new AsyncCallback<BackendlessUser>() {
             @Override
             public void handleResponse(BackendlessUser response) {
@@ -141,6 +136,12 @@ public class UserRepository implements UserRepositoryInterface {
 
     @Override
     public void registerAsync(ViewUserResgister model, ProgressDialogCallBack<BackendlessUser> callBack) {
+        User user = createUser(model);
+        Backendless.UserService.register(user, callBack);
+    }
+
+    @NonNull
+    private User createUser(ViewUserResgister model) {
         User user = new User();
         user.setEmail(model.email);
         user.setPassword(model.password);
@@ -148,7 +149,7 @@ public class UserRepository implements UserRepositoryInterface {
         user.setProperty(User.LAST_NAME_KEY, model.lastName);
         user.setName(model.firstName);
         user.setMacAddress(NetworkHelper.getMacAddress(context));
-        Backendless.UserService.register(user, callBack);
+        return user;
     }
 
     @Override
