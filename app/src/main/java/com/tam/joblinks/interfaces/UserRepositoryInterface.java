@@ -11,9 +11,10 @@ import com.tam.joblinks.models.ViewUserResgister;
 public interface UserRepositoryInterface {
     void login(ViewUserLogin model);
     void loginAsync(ViewUserLogin model);
-    void loginAsync(ViewUserLogin model, ProgressDialogCallBack<BackendlessUser> callBack, Boolean remember);
+    void loginAsync(ViewUserLogin model, ProgressDialogCallBack<BackendlessUser> callBack);
     void logout();
     void logoutAsync();
+    void logoutAsync(ProgressDialogCallBack<Void> callBack);
     void register(ViewUserResgister model);
     void registerAsync(ViewUserResgister model);
     void registerAsync(ViewUserResgister model, ProgressDialogCallBack<BackendlessUser> callBack);

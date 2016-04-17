@@ -63,8 +63,8 @@ public class UserRepository implements UserRepositoryInterface {
     }
 
     @Override
-    public void loginAsync(ViewUserLogin model, ProgressDialogCallBack<BackendlessUser> callBack, Boolean remember) {
-        Backendless.UserService.login(model.email, model.password, callBack, remember);
+    public void loginAsync(ViewUserLogin model, ProgressDialogCallBack<BackendlessUser> callBack) {
+        Backendless.UserService.login(model.email, model.password, callBack, model.rememberMe);
     }
 
     @Override
@@ -93,6 +93,11 @@ public class UserRepository implements UserRepositoryInterface {
                 DialogHelper.showErrorMessage(context, "Something went wrong and logout failed.");
             }
         });
+    }
+
+    @Override
+    public void logoutAsync(ProgressDialogCallBack<Void> callBack) {
+        Backendless.UserService.logout(callBack);
     }
 
     @Override

@@ -65,7 +65,7 @@ public class RegisterAccountActivity extends AppCompatActivity {
     }
 
     private void registerUser() {
-        if (validateField()) {
+        if (validateFields()) {
             ViewUserResgister user = new ViewUserResgister();
             user.email = email;
             user.firstName = firstName;
@@ -87,7 +87,7 @@ public class RegisterAccountActivity extends AppCompatActivity {
         }
     }
 
-    private boolean validateField() {
+    private boolean validateFields() {
         email = tvRegisterEmail.getText().toString().trim();
         firstName = edRegisterFirstName.getText().toString().trim();
         lastName = edRegisterLastName.getText().toString().trim();

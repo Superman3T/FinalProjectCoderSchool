@@ -7,5 +7,6 @@ public class ViewUserLogin {
     public String email;
     public String name;
     public String password;
+    public boolean rememberMe;
     public ViewUserLogin() {}
 }
