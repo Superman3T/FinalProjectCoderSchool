@@ -38,9 +38,9 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobsViewHolder
     @Override
     public void onBindViewHolder(JobsViewHolder holder, int position) {
         final Job job = this.jobs.get(position);
-        holder.tvJobCity.setText(job.city);
-        holder.tvJobCompany.setText(job.company);
-        holder.tvJobTitle.setText(job.title);
+        holder.tvJobCity.setText(job.getCity());
+        holder.tvJobCompany.setText(job.displayCompanyOrUser());
+        holder.tvJobTitle.setText(job.getTitle());
         holder.btJobApply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

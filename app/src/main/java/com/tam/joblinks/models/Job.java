@@ -1,5 +1,7 @@
 package com.tam.joblinks.models;
 
+import com.tam.joblinks.helpers.StringHelper;
+
 /**
  * Created by toan on 4/13/2016.
  */
@@ -14,6 +16,7 @@ public class Job {
     private java.util.Date updated;
     private Integer min_salary;
     private String ownerId;
+    private String createdName;
     private java.util.List<UserAndJob> related_users;
 
     public String getCity() {
@@ -86,6 +89,13 @@ public class Job {
 
     public void setRelated_users(java.util.List<UserAndJob> related_users) {
         this.related_users = related_users;
+    }
+
+    public String displayCompanyOrUser() {
+        if (!StringHelper.isNullOrEmpty(this.createdName)) {
+            return this.createdName;
+        }
+        return "HARD CODE COMPANY";
     }
     public Job() {}
 
