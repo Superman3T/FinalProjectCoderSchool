@@ -79,10 +79,11 @@ public class UserRepository implements UserRepositoryInterface {
 
     @Override
     public void logoutAsync() {
-        Backendless.UserService.logout(new AsyncCallback<Void>() {
+        Backendless.UserService.logout(new ProgressDialogCallBack<Void>(context) {
             @Override
             public void handleResponse(Void response) {
                 Log.i("logoutAsync", "successfully logout");
+                super.handleResponse(response);
             }
 
             @Override
@@ -144,9 +145,9 @@ public class UserRepository implements UserRepositoryInterface {
     private User createUser(ViewUserResgister model) {
         User user = new User();
         user.setEmail(model.email);
+        user.setLastName(model.lastName);
+        user.setFirstName(model.firstName);
         user.setPassword(model.password);
-        user.setProperty(User.FIRST_NAME_KEY, model.firstName);
-        user.setProperty(User.LAST_NAME_KEY, model.lastName);
         user.setName(model.firstName);
         user.setMacAddress(NetworkHelper.getMacAddress(context));
         return user;

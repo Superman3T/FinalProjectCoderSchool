@@ -137,7 +137,7 @@ public class LoginActivity extends AppCompatActivity {
             model.rememberMe = true; // HARD CODE
             model.email = this.email;
             model.password = this.password;
-            this.userRepo.loginAsync(null, new ProgressDialogCallBack<BackendlessUser>(this) {
+            this.userRepo.loginAsync(model, new ProgressDialogCallBack<BackendlessUser>(this) {
                 @Override
                 public void handleResponse(BackendlessUser response) {
                     super.handleResponse(response);

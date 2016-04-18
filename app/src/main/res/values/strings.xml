@@ -11,7 +11,7 @@
     <string name="prompt_search">Search</string>
     <string name="prompt_cities">City</string>
     <string name="prompt_last_name">Last name</string>
-    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in">Sign in</string>
     <string name="action_register">Register</string>
     <string name="action_logout">Logout</string>
     <string name="action_forgot_password">Forgot password ?</string>

@@ -77,12 +77,6 @@ public class RegisterAccountActivity extends AppCompatActivity {
                     startActivity(new Intent(RegisterAccountActivity.this, HomeActivity.class));
                     finish();
                 }
-
-//                @Override
-//                public void handleFault(BackendlessFault fault) {
-//                    super.handleFault(fault);
-//                    //Log.d("registerAsync", "Error code: " + fault.getCode());
-//                }
             });
         }
     }
@@ -145,4 +139,5 @@ public class RegisterAccountActivity extends AppCompatActivity {
     private void showToast(String message) {
         MessageHelper.showToast(this, message);
     }
+
 }
