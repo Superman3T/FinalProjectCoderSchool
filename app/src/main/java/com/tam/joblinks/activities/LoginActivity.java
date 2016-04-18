@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.backendless.BackendlessUser;
 import com.tam.joblinks.R;
 import com.tam.joblinks.helpers.ProgressDialogCallBack;
+import com.tam.joblinks.helpers.SessionPreferencesHelper;
 import com.tam.joblinks.helpers.StringHelper;
 import com.tam.joblinks.helpers.Validator;
 import com.tam.joblinks.interfaces.UserRepositoryInterface;
@@ -141,7 +142,8 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void handleResponse(BackendlessUser response) {
                     super.handleResponse(response);
-//                    startActivity( new Intent( LoginActivity.this, LoginSuccessActivity.class ) );
+                    SessionPreferencesHelper session = new SessionPreferencesHelper(LoginActivity.this);
+                    session.createLoginSession(email);
                     startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                     finish();
                 }

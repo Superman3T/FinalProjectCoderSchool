@@ -21,13 +21,14 @@ import com.tam.joblinks.models.ViewUserResgister;
 /**
  * Created by toan on 4/12/2016.
  */
-public class UserRepository implements UserRepositoryInterface {
+public class UserRepository extends BaseRepository<User> implements UserRepositoryInterface {
 
     private boolean result;
 
     private Context context;
 
     public UserRepository(Context context) {
+        super(User.class);
         this.context = context;
     }
 
