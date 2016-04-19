@@ -42,4 +42,5 @@
     <string name="invalid_length_name">The length of name is too short.</string>
     <string name="email">Email: </string>
     <string name="invalid_email">Email is invalid.</string>
+    <string name="facebook_app_id">1005158932854569</string>
 </resources>
