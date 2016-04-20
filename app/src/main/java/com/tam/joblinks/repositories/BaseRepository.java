@@ -1,5 +1,7 @@
 package com.tam.joblinks.repositories;
 
+import android.content.Context;
+
 import com.backendless.Backendless;
 import com.tam.joblinks.helpers.ProgressDialogCallBack;
 import com.tam.joblinks.helpers.ProgressDialogCollectionCallBack;
@@ -10,7 +12,8 @@ import com.tam.joblinks.interfaces.BaseInterface;
  */
 public abstract class BaseRepository<T> implements BaseInterface<T> {
     // http://stackoverflow.com/questions/16799129/java-generics-get-classt-of-generic-parameter
-    private Class<T> curClass;
+    protected Class<T> curClass;
+    protected Context context;
     public BaseRepository(Class<T> entityClass) {
         this.curClass = entityClass;
     }

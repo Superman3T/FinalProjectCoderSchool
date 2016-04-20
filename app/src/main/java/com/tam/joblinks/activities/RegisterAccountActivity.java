@@ -2,7 +2,6 @@ package com.tam.joblinks.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -10,7 +9,6 @@ import android.widget.EditText;
 
 import com.backendless.BackendlessUser;
 import com.tam.joblinks.R;
-import com.tam.joblinks.helpers.MessageHelper;
 import com.tam.joblinks.helpers.ProgressDialogCallBack;
 import com.tam.joblinks.helpers.Validator;
 import com.tam.joblinks.interfaces.UserRepositoryInterface;
@@ -22,7 +20,7 @@ import java.util.regex.Pattern;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class RegisterAccountActivity extends AppCompatActivity {
+public class RegisterAccountActivity extends BaseActivity {
 
     @Bind(R.id.btRegister)
     Button btRegister;
@@ -134,10 +132,6 @@ public class RegisterAccountActivity extends AppCompatActivity {
             return true;
         }
         return false;
-    }
-
-    private void showToast(String message) {
-        MessageHelper.showToast(this, message);
     }
 
 }

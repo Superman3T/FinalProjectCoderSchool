@@ -25,8 +25,6 @@ public class UserRepository extends BaseRepository<User> implements UserReposito
 
     private boolean result;
 
-    private Context context;
-
     public UserRepository(Context context) {
         super(User.class);
         this.context = context;

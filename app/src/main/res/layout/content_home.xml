@@ -12,18 +12,8 @@
     tools:context="com.tam.joblinks.activities.HomeActivity"
     tools:showIn="@layout/activity_home">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Home page"
-        android:id="@+id/textView"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
-    <Button
-        android:layout_width="@dimen/dp144"
-        android:layout_height="@dimen/dp48"
-        android:text="@string/action_logout"
-        android:id="@+id/btLogout"
-        android:layout_marginTop="@dimen/dp16"
-        android:textSize="@dimen/text_medium"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvJobs"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </RelativeLayout>
