@@ -31,4 +31,5 @@ dependencies {
     compile 'com.android.support:design:23.2.1'
     compile 'com.backendless:backendless:3.0.11'
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+    compile 'com.makeramen:roundedimageview:2.2.1'
 }

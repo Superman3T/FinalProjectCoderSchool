@@ -7,10 +7,15 @@
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="prompt_first_name">First name</string>
+    <string name="prompt_title">Title</string>
+    <string name="prompt_job_short_description">Short Description</string>
+    <string name="prompt_job_description">Description</string>
+    <string name="prompt_job_city">City</string>
     <string name="prompt_keyword">Key word</string>
     <string name="prompt_search">Search</string>
     <string name="prompt_cities">City</string>
     <string name="prompt_last_name">Last name</string>
+    <string name="prompt_salary">Salary</string>
     <string name="action_sign_in">Sign in</string>
     <string name="action_register">Register</string>
     <string name="action_logout">Logout</string>

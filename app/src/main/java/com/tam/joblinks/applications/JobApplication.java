@@ -7,8 +7,8 @@ import com.backendless.Backendless;
 /**
  * Created by toan on 4/14/2016.
  */
-public class BackendlessApplication extends Application {
-
+public class JobApplication extends Application {
+    public static String currentMail = "";
     public static final String SERVER_URL = "https://api.backendless.com";
     private static final String APP_VERSION = "v1";
     private static final String APP_ID = "B12EE488-15DE-8B01-FF81-39F47C8C6800";

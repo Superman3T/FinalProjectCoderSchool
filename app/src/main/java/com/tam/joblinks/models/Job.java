@@ -2,6 +2,8 @@ package com.tam.joblinks.models;
 
 import com.tam.joblinks.helpers.StringHelper;
 
+import java.util.Date;
+
 /**
  * Created by toan on 4/13/2016.
  */
@@ -15,8 +17,40 @@ public class Job {
     private Integer salary;
     private java.util.Date updated;
     private Integer min_salary;
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
+    }
+
     private String ownerId;
-    private String createdName;
+    private String description;
+    private String createdBy;
+    private String shortDescription;
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     private java.util.List<UserAndJob> related_users;
 
     public String getCity() {
@@ -31,6 +65,10 @@ public class Job {
         return objectId;
     }
 
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -43,11 +81,15 @@ public class Job {
         return created;
     }
 
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
     public java.util.Date getExpirationDate() {
         return expiration_date;
     }
 
-    public void setExpirationDate(java.util.Date expiration_date) {
+    public void setExpiration_date(java.util.Date expiration_date) {
         this.expiration_date = expiration_date;
     }
 
@@ -71,6 +113,10 @@ public class Job {
         return updated;
     }
 
+    public void setUpdated(Date updated) {
+        this.updated = updated;
+    }
+
     public Integer getMin_salary() {
         return min_salary;
     }
@@ -92,11 +138,13 @@ public class Job {
     }
 
     public String displayCompanyOrUser() {
-        if (!StringHelper.isNullOrEmpty(this.createdName)) {
-            return this.createdName;
+        if (!StringHelper.isNullOrEmpty(this.createdBy)) {
+            return this.createdBy;
         }
         return "HARD CODE COMPANY";
     }
-    public Job() {}
+
+    public Job() {
+    }
 
 }

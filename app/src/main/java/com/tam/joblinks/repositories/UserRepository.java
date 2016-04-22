@@ -10,6 +10,7 @@ import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessException;
 import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.local.UserIdStorageFactory;
+import com.tam.joblinks.applications.JobApplication;
 import com.tam.joblinks.helpers.DialogHelper;
 import com.tam.joblinks.helpers.NetworkHelper;
 import com.tam.joblinks.helpers.ProgressDialogCallBack;
@@ -53,7 +54,7 @@ public class UserRepository extends BaseRepository<User> implements UserReposito
 
             @Override
             public void handleFault(BackendlessFault fault) {
-                Log.e("LoginAsync", "Exception registerAsync, code: " + fault.getCode() + ", message: " + fault.getMessage());
+                Log.e("LoginAsync", "Exception LoginAsync, code: " + fault.getCode() + ", message: " + fault.getMessage());
                 DialogHelper.showErrorMessage(context, "Login failed. Please try again.");
             }
         };
@@ -122,6 +123,7 @@ public class UserRepository extends BaseRepository<User> implements UserReposito
             @Override
             public void handleResponse(BackendlessUser response) {
                 Log.i("Registration", response.getEmail() + " successfully registered");
+                JobApplication.currentMail = response.getEmail();
 //                SessionPreferencesHelper session = new SessionPreferencesHelper(context);
 //                session.createLoginSession(model.getFullName(), model.email);
             }
