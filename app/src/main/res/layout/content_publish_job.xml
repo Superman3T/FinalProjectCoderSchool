@@ -61,6 +61,7 @@
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:hint="@string/prompt_salary"
+                    android:inputType="number"
                     android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
@@ -122,7 +123,6 @@
             android:layout_marginBottom="@dimen/spacing_large"
             android:layout_marginTop="@dimen/spacing_large"
             android:orientation="vertical">
-
 
             <TextView
                 android:id="@+id/tvJobCity"

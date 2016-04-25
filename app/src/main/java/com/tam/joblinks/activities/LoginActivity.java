@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.backendless.BackendlessUser;
 import com.tam.joblinks.R;
+import com.tam.joblinks.applications.JobApplication;
 import com.tam.joblinks.helpers.ProgressDialogCallBack;
 import com.tam.joblinks.helpers.SessionPreferencesHelper;
 import com.tam.joblinks.helpers.StringHelper;
@@ -149,8 +150,13 @@ public class LoginActivity extends AppCompatActivity {
                     super.handleResponse(response);
                     SessionPreferencesHelper session = new SessionPreferencesHelper(LoginActivity.this);
                     session.createLoginSession(email);
-                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-                    finish();
+                    JobApplication.currentMail = email;
+                    if (JobApplication.previousPage.equals(PublishJobActivity.class.getSimpleName())) {
+                        startActivity(new Intent(LoginActivity.this, PublishJobActivity.class));
+                    } else {
+                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                    }
+                    //finish();
                 }
             });
         }

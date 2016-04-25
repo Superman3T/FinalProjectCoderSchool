@@ -17,6 +17,7 @@
     <string name="prompt_last_name">Last name</string>
     <string name="prompt_salary">Salary</string>
     <string name="action_sign_in">Sign in</string>
+    <string name="please_sign_in">Please sign in to publish a job.</string>
     <string name="action_register">Register</string>
     <string name="link_to_register">No account yet? Create one.</string>
     <string name="action_logout">Logout</string>
@@ -63,6 +64,6 @@
     <string name="tab_message">Message</string>
     <string name="message_welcome">Welcome to JobLinks!</string>
     <string name="add_job_successfully">Add job successfully.</string>
-    <string name="title_activity_publish_job">PublishJobActivity</string>
+    <string name="title_activity_publish_job">Publish Job</string>
     <string name="submit">Submit</string>
 </resources>

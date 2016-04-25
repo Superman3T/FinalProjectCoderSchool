@@ -205,7 +205,7 @@
                             android:layout_weight="1"
                             android:background="@android:color/transparent"
                             android:hint="@string/prompt_password"
-                            android:inputType="text"
+                            android:inputType="textPassword"
                             android:singleLine="true" />
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>

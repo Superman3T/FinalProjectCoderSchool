@@ -9,6 +9,15 @@ public class UserAndJob {
     private String ownerId;
     private java.util.Date updated;
     private Integer type;
+    private String jobId;
+
+    public String getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(String jobId) {
+        this.jobId = jobId;
+    }
 
     public String getObjectId() {
         return objectId;
@@ -20,6 +29,10 @@ public class UserAndJob {
 
     public String getOwnerId() {
         return ownerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 
     public java.util.Date getUpdated() {
