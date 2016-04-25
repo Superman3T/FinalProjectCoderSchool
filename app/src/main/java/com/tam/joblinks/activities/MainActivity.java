@@ -10,14 +10,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.tam.joblinks.R;
+import com.tam.joblinks.fragments.JobsFragment;
 import com.tam.joblinks.fragments.MainPageFragmentAdapter;
 import com.tam.joblinks.fragments.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
-
-    //    @Bind(R.id.toolbar)
-//    Toolbar toolbar;
-    private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
@@ -26,31 +23,26 @@ public class MainActivity extends AppCompatActivity {
     private ActionBar actionbar;
     private MainPageFragmentAdapter adapter;
     private ProfileFragment profileFragment;
-
-
-//    private PageFragmentAdapter adapter;
-
-//    private PageFeedFragment f_feed;
-//    private PageFriendFragment f_friend;
-//    private PageMessageFragment f_message;
-//    private PageNotifFragment f_notif;
-//    private PageProfileFragment f_profile;
-//    private static int[] imageResId = {
-//            R.drawable.tab_feed,
-//            R.drawable.tab_friend,
-//            R.drawable.tab_chat,
-//            R.drawable.tab_notif,
-//            R.drawable.tab_profile
-//    };
-
-
+    private JobsFragment jobsFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);;parent_view = findViewById(android.R.id.content);
+//        fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(false);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         addTabs();
@@ -59,17 +51,33 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         addTabIcons();
-
+        setupTabClick();
     }
-
     private void addTabs() {
         adapter = new MainPageFragmentAdapter(getSupportFragmentManager());
         profileFragment = ProfileFragment.newInstance();
+        jobsFragment = JobsFragment.newInstance();
+        adapter.addFragment(jobsFragment, getString(R.string.tab_home));
         adapter.addFragment(profileFragment, getString(R.string.tab_profile));
         viewPager.setAdapter(adapter);
     }
 
     private void addTabIcons() {
-        tabLayout.getTabAt(0).setIcon(R.drawable.tab_profile);
+        tabLayout.getTabAt(0).setIcon(R.drawable.tab_jobs);
+        tabLayout.getTabAt(1).setIcon(R.drawable.tab_profile);
+    }
+    private void setupTabClick() {
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int position = tab.getPosition();
+                viewPager.setCurrentItem(position);
+                actionbar.setTitle(adapter.getTitle(position));
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) { }
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) { }
+        });
     }
 }

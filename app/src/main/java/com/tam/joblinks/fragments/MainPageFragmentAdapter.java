@@ -38,7 +38,7 @@ public class MainPageFragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return super.getPageTitle(position);
+        return null;
     }
 
     public String getTitle(int position) {

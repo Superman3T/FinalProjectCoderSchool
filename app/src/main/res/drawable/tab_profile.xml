@@ -4,7 +4,7 @@
   <item android:state_selected="true" android:state_pressed="false">
       <layer-list>
           <item android:bottom="4dp">
-              <bitmap android:src="@drawable/ic_account_white_24dp"/>
+              <bitmap android:src="@drawable/ic_profile_white"/>
           </item>
       </layer-list>
   </item>
@@ -12,7 +12,7 @@
   <item android:state_selected="false" android:state_pressed="false">
       <layer-list>
           <item android:bottom="4dp">
-              <bitmap android:src="@drawable/ic_account_grey600_24dp"/>
+              <bitmap android:src="@drawable/ic_profile_dark"/>
           </item>
       </layer-list>
   </item>

@@ -3,7 +3,6 @@ package com.tam.joblinks.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -31,8 +30,8 @@ public class RegisterAccountActivity extends BaseActivity {
     @Bind(R.id.edRegisterLastName)
     EditText edRegisterLastName;
 
-    @Bind(R.id.tvRegisterEmail)
-    AutoCompleteTextView tvRegisterEmail;
+    @Bind(R.id.edRegisterEmail)
+    EditText edRegisterEmail;
 
     @Bind(R.id.edRegisterPassword)
     EditText edRegisterPassword;
@@ -80,18 +79,18 @@ public class RegisterAccountActivity extends BaseActivity {
     }
 
     private boolean validateFields() {
-        email = tvRegisterEmail.getText().toString().trim();
+        email = edRegisterEmail.getText().toString().trim();
         firstName = edRegisterFirstName.getText().toString().trim();
         lastName = edRegisterLastName.getText().toString().trim();
         password = edRegisterPassword.getText().toString().trim();
         if (email.isEmpty()) {
             showToast(getString(R.string.email_required));
-            tvRegisterEmail.requestFocus();
+            edRegisterEmail.requestFocus();
             return false;
         } else {
             if (!Validator.isValidEmail(email)) {
                 showToast(getString(R.string.invalid_email));
-                tvRegisterEmail.requestFocus();
+                edRegisterEmail.requestFocus();
                 return false;
             }
         }
@@ -129,6 +128,7 @@ public class RegisterAccountActivity extends BaseActivity {
             return false;
         }
         if (Pattern.matches("[a-zA-Z]+", name)) {
+            showToast(getString(R.string.invalid_name));
             return true;
         }
         return false;

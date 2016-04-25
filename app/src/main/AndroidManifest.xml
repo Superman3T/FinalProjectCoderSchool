@@ -20,12 +20,7 @@
         <activity
             android:name=".activities.LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity
-            android:name=".activities.FullscreenActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_fullscreen"
-            android:theme="@style/FullscreenTheme" />
-        <activity
+
             android:name=".activities.RegisterAccountActivity"
             android:label="@string/title_activity_register_account" />
         <activity
@@ -33,9 +28,7 @@
             android:label="@string/title_activity_search_job" />
         <activity
             android:name=".activities.HomeActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".activities.ForgotPasswordActivity" />
 
         <meta-data
@@ -43,10 +36,12 @@
             android:value="@string/facebook_app_id" />
 
         <activity android:name=".activities.PublishJobActivity" />
-        <activity android:name=".activities.MainActivity">
+        <activity
+            android:name=".activities.MainActivity"
+            android:label="@string/title_activity_main"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
