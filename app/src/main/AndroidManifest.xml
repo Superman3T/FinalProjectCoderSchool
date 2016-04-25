@@ -19,10 +19,20 @@
         <activity android:name=".activities.SplashActivity" />
         <activity
             android:name=".activities.LoginActivity"
-            android:label="@string/title_activity_login" />
-
+            android:label="@string/title_activity_login">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".activities.RegisterAccountActivity"
-            android:label="@string/title_activity_register_account" />
+            android:label="@string/title_activity_register_account">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activities.SearchJobActivity"
             android:label="@string/title_activity_search_job" />
@@ -38,8 +48,7 @@
         <activity android:name=".activities.PublishJobActivity" />
         <activity
             android:name=".activities.MainActivity"
-            android:label="@string/title_activity_main"
-            >
+            android:label="@string/title_activity_main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

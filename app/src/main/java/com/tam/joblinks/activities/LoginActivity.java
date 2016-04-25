@@ -3,11 +3,9 @@ package com.tam.joblinks.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -39,9 +37,9 @@ public class LoginActivity extends AppCompatActivity {
 
     @Bind(R.id.tvRegisterLink)
     TextView tvRegisterLink;
-
-    @Bind(R.id.tvForgotPassword)
-    TextView tvForgotPassword;
+//
+//    @Bind(R.id.tvForgotPassword)
+//    TextView tvForgotPassword;
 
     @Bind(R.id.btSignIn)
     Button btSignIn;
@@ -70,16 +68,16 @@ public class LoginActivity extends AppCompatActivity {
 
     private void initUI() {
         ButterKnife.bind(this);;
-        edLoginPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
-                }
-                return false;
-            }
-        });
+//        edLoginPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//            @Override
+//            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+//                if (id == R.id.login || id == EditorInfo.IME_NULL) {
+//                    attemptLogin();
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
 
         tvRegisterLink.setOnClickListener(new OnClickListener() {
             @Override
@@ -88,14 +86,14 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-        tvForgotPassword.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
-                finish();
-            }
-        });
+//
+//        tvForgotPassword.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
+//                finish();
+//            }
+//        });
 
         btSignIn.setOnClickListener(new OnClickListener() {
             @Override
