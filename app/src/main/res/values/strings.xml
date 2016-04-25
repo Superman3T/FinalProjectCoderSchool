@@ -64,4 +64,5 @@
     <string name="message_welcome">Welcome to JobLinks!</string>
     <string name="add_job_successfully">Add job successfully.</string>
     <string name="title_activity_publish_job">PublishJobActivity</string>
+    <string name="submit">Submit</string>
 </resources>
