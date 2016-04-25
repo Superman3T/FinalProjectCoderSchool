@@ -60,5 +60,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tab_profile">Profile</string>
     <string name="tab_home">Home</string>
+    <string name="tab_message">Message</string>
     <string name="message_welcome">Welcome to JobLinks!</string>
+    <string name="add_job_successfully">Add job successfully.</string>
+    <string name="title_activity_publish_job">PublishJobActivity</string>
 </resources>

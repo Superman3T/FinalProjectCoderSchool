@@ -1,84 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:fitsSystemWindows="true"
     tools:context="com.tam.joblinks.activities.PublishJobActivity">
-    <LinearLayout
-        android:id="@+id/llPublishJob"
+
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <android.support.design.widget.TextInputLayout
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-            <EditText
-                android:id="@+id/edJobTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/prompt_first_name"
-                android:inputType="text"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:maxLength="@integer/char15" />
+    </android.support.design.widget.AppBarLayout>
 
-        </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <include layout="@layout/content_publish_job" />
 
-            <EditText
-                android:id="@+id/edJobSalary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/prompt_salary"
-                android:inputType="text"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:maxLength="@integer/char15"/>
 
-        </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/edJobDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/prompt_email"
-                android:inputType="textMultiLine"
-                android:maxLines="1"
-                android:singleLine="true"/>
-
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <Spinner
-                android:id="@+id/spinnerJobCity"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:prompt="@string/prompt_cities"
-                android:entries="@array/cities_array"/>
-
-        </android.support.design.widget.TextInputLayout>
-
-        <Button
-            android:id="@+id/btPublishJob"
-            style="?android:textAppearanceSmall"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/action_register"
-            android:textStyle="bold"/>
-
-    </LinearLayout>
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
