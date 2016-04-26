@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.backendless.exceptions.BackendlessFault;
 import com.tam.joblinks.R;
 import com.tam.joblinks.applications.JobApplication;
 import com.tam.joblinks.helpers.DateHelper;
@@ -22,12 +24,17 @@ import com.tam.joblinks.interfaces.UserAndJobInterface;
 import com.tam.joblinks.models.Job;
 import com.tam.joblinks.models.UserAndJob;
 import com.tam.joblinks.repositories.JobRepository;
+import com.tam.joblinks.repositories.UserAndJobRepository;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class PublishJobActivity extends BaseActivity {
     private final int REQUEST_CODE = 20;
+    private static String jobCity;
+    private static String jobTitle;
+    private static int jobSalary;
+    private static String jobDescription;
     @Bind(R.id.edJobSalary)
     EditText edJobSalary;
 
@@ -46,8 +53,10 @@ public class PublishJobActivity extends BaseActivity {
 
     private JobRepositoryInterface jobRepositoryInterface;
     private UserAndJobInterface userAndJobInterface;
+
     public PublishJobActivity() {
         this.jobRepositoryInterface = new JobRepository(this);
+        this.userAndJobInterface = new UserAndJobRepository(this);
     }
 
     @Override
@@ -59,6 +68,7 @@ public class PublishJobActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initUI();
+        setJobValues();
     }
 
     @Override
@@ -106,9 +116,7 @@ public class PublishJobActivity extends BaseActivity {
                 .show();
     }
 
-    private String jobCity;
-    private String jobTitle;
-    private int jobSalary;
+
     private void publishJob() {
         if (StringHelper.isNullOrEmpty(JobApplication.currentMail)) {
             Snackbar.make(parentView, R.string.please_sign_in, Snackbar.LENGTH_LONG)
@@ -130,8 +138,9 @@ public class PublishJobActivity extends BaseActivity {
             newJob.setCity(jobCity);
             newJob.setTitle(jobTitle);
             newJob.setSalary(jobSalary);
+            newJob.setDescription(jobDescription);
             newJob.setCreatedBy(JobApplication.currentMail);
-            newJob.setExpiration_date(DateHelper.addDaysFromCurrentDate(7));
+            newJob.setExpirationDate(DateHelper.addDaysFromCurrentDate(7));
             jobRepositoryInterface.upsertAsync(newJob, new ProgressDialogCallBack<Job>(PublishJobActivity.this) {
                 @Override
                 public void handleResponse(Job savedJob) {
@@ -139,49 +148,48 @@ public class PublishJobActivity extends BaseActivity {
                     showToast(getString(R.string.add_job_successfully));
                     UserAndJob userAndJob = new UserAndJob();
                     userAndJob.setJobId(savedJob.getObjectId());
-                    userAndJob.setOwnerId(JobApplication.currentMail);
+                    //userAndJob.setOwnerId(JobApplication.currentMail);
+                    userAndJob.setEmail(JobApplication.currentMail);
                     userAndJob.setType(JobApplication.PUBLISH_JOB);
-                    userAndJobInterface.upsertAsync(userAndJob, new ProgressDialogCallBack<UserAndJob>(PublishJobActivity.this) {
-                        @Override
-                        public void handleResponse(UserAndJob response) {
-                            super.handleResponse(response);
-                        }
-                    });
+                    try {
+                        userAndJobInterface.upsertAsync(userAndJob, new ProgressDialogCallBack<UserAndJob>(PublishJobActivity.this) {
+                            @Override
+                            public void handleResponse(UserAndJob response) {
+                                super.handleResponse(response);
+                            }
+
+                            @Override
+                            public void handleFault(BackendlessFault fault) {
+                                Log.d("userAndJob.upsertAsync", "handleFault: " + fault.getMessage() + ", code: " + fault.getCode());
+                                super.handleFault(fault);
+                            }
+                        });
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+
                     super.handleResponse(savedJob);
                 }
             });
         }
     }
 
-    private void getJobValues() {
-        jobCity = tvJobCity.getText().toString();
-        jobTitle = edJobTitle.getText().toString();
-        if (StringHelper.isNullOrEmpty(edJobSalary.getText().toString())) {
-            jobSalary = Integer.valueOf(edJobSalary.getText().toString());
-        }
-    }
-
-
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState)
-    {
-        savedInstanceState.putString("jobCity", jobCity);
-        savedInstanceState.putString("jobTitle", jobTitle);
-        savedInstanceState.putInt("jobSalary", jobSalary);
-        super.onSaveInstanceState(savedInstanceState);
-    }
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        jobCity = savedInstanceState.getString("jobCity");
-        jobTitle = savedInstanceState.getString("jobTitle");
-        jobSalary = savedInstanceState.getInt("jobSalary");
-        setJobValues();
-    }
-
     private void setJobValues() {
         tvJobCity.setText(jobCity);
         edJobTitle.setText(jobTitle);
-        edJobSalary.setText(String.valueOf(jobSalary));
+        edJobDescription.setText(jobDescription);
+        if (jobSalary != 0) {
+            edJobSalary.setText(String.valueOf(jobSalary));
+        }
+    }
+
+    private void getJobValues() {
+        jobCity = tvJobCity.getText().toString().trim();
+        jobTitle = edJobTitle.getText().toString().trim();
+        jobDescription = edJobDescription.getText().toString().trim();
+        String tempSalary = edJobSalary.getText().toString().trim();
+        if (!StringHelper.isNullOrEmpty(tempSalary) && !tempSalary.equals("0")) {
+            jobSalary = Integer.valueOf(tempSalary);
+        }
     }
 }

@@ -1,13 +1,16 @@
 package com.tam.joblinks.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageView;
 
 import com.tam.joblinks.R;
+import com.tam.joblinks.applications.JobApplication;
+import com.tam.joblinks.helpers.SessionPreferencesHelper;
+import com.tam.joblinks.helpers.StringHelper;
 import com.tam.joblinks.interfaces.UserRepositoryInterface;
 import com.tam.joblinks.repositories.UserRepository;
 
@@ -25,6 +28,10 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        SessionPreferencesHelper session  = new SessionPreferencesHelper(this);
+        if (!StringHelper.isNullOrEmpty(session.getEmail())) {
+            JobApplication.currentMail = session.getEmail();
+        }
         bindLogo();
         TimerTask task = new TimerTask() {
             @Override

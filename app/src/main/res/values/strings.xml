@@ -30,7 +30,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="message_login">Greate to see you again</string>
+    <string name="message_login">Great to see you again</string>
     <string name="message_login2">and have a good day.</string>
     <string name="message_register">Create Account</string>
     <string name="message_register2">and get good jobs.</string>
@@ -66,4 +66,6 @@
     <string name="add_job_successfully">Add job successfully.</string>
     <string name="title_activity_publish_job">Publish Job</string>
     <string name="submit">Submit</string>
+    <string name="apply">Apply</string>
+    <string name="save">Save</string>
 </resources>

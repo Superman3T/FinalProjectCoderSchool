@@ -152,6 +152,10 @@ public class JobDbHelper extends SQLiteOpenHelper {
         updateStatus(objectId, JobStatus.saved);
     }
 
+    public void saveJob(Job job) {
+        addJob(job, false, true, false);
+    }
+
     public void applyJob(String objectId) {
         updateStatus(objectId, JobStatus.applied);
     }
@@ -227,7 +231,7 @@ public class JobDbHelper extends SQLiteOpenHelper {
         job.setCity(getString(cursor, COL_JOB_CITY));
         job.setObjectId(getString(cursor, COL_OBJECT_ID));
         job.setTitle(getString(cursor, COL_TITLE));
-        job.setExpiration_date(getDateTime(cursor, COL_EXPIRATION_DATE));
+        job.setExpirationDate(getDateTime(cursor, COL_EXPIRATION_DATE));
         job.setMax_salary(getInt(cursor, COL_MAX_SALARY));
         job.setMin_salary(getInt(cursor, COL_MIN_SALARY));
         job.setSalary(getInt(cursor, COL_SALARY));

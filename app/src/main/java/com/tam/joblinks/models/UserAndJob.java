@@ -10,6 +10,15 @@ public class UserAndJob {
     private java.util.Date updated;
     private Integer type;
     private String jobId;
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getJobId() {
         return jobId;

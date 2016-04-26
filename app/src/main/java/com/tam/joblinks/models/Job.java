@@ -12,7 +12,7 @@ public class Job {
     private String objectId;
     private String title;
     private java.util.Date created;
-    private java.util.Date expiration_date;
+    private java.util.Date expirationDate;
     private Integer max_salary;
     private Integer salary;
     private java.util.Date updated;
@@ -86,11 +86,11 @@ public class Job {
     }
 
     public java.util.Date getExpirationDate() {
-        return expiration_date;
+        return expirationDate;
     }
 
-    public void setExpiration_date(java.util.Date expiration_date) {
-        this.expiration_date = expiration_date;
+    public void setExpirationDate(java.util.Date expirationDate) {
+        this.expirationDate = expirationDate;
     }
 
     public Integer getMax_salary() {
@@ -141,7 +141,7 @@ public class Job {
         if (!StringHelper.isNullOrEmpty(this.createdBy)) {
             return this.createdBy;
         }
-        return "HARD CODE COMPANY";
+        return "";
     }
 
     public Job() {

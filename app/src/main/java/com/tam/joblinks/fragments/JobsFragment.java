@@ -1,14 +1,36 @@
 package com.tam.joblinks.fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.backendless.BackendlessCollection;
+import com.backendless.persistence.BackendlessDataQuery;
+import com.backendless.persistence.QueryOptions;
 import com.tam.joblinks.R;
+import com.tam.joblinks.adapters.JobsAdapter;
+import com.tam.joblinks.applications.JobApplication;
+import com.tam.joblinks.helpers.NetworkHelper;
+import com.tam.joblinks.helpers.ProgressDialogCollectionCallBack;
+import com.tam.joblinks.interfaces.JobRepositoryInterface;
+import com.tam.joblinks.interfaces.UserRepositoryInterface;
+import com.tam.joblinks.listeners.EndlessRecyclerViewScrollListener;
+import com.tam.joblinks.models.Job;
+import com.tam.joblinks.repositories.JobRepository;
+import com.tam.joblinks.repositories.UserRepository;
+
+import java.util.ArrayList;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,8 +42,26 @@ import com.tam.joblinks.R;
  */
 public class JobsFragment extends Fragment {
 
+    @Bind(R.id.rvJobs)
+    RecyclerView rvJobs;
+
+    @Bind(R.id.swipeContainer)
+    SwipeRefreshLayout swipeContainer;
+
+    private String TAG = JobsFragment.class.getSimpleName();
+    private UserRepositoryInterface userRepo;
+    private JobRepositoryInterface jobRepo;
+    private BackendlessCollection<Job> backendlessCollection;
+    private ArrayList<Job> totalJobs = new ArrayList<>();
+
+    private JobsAdapter adapter;
+
+    private LinearLayoutManager linearLayout;
+
     public JobsFragment() {
         // Required empty public constructor
+        this.jobRepo = new JobRepository(getActivity());
+        this.userRepo = new UserRepository(getActivity());
     }
 
     /**
@@ -56,7 +96,101 @@ public class JobsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_jobs, container, false);
+        View view = inflater.inflate(R.layout.fragment_jobs, container, false);
+        ButterKnife.bind(this, view);
+        linearLayout = new LinearLayoutManager(getActivity());
+        return view;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        rvJobs.setItemAnimator(new SlideInUpAnimator());
+        adapter = new JobsAdapter(totalJobs);
+        rvJobs.setAdapter(adapter);
+        linearLayout.setOrientation(LinearLayoutManager.VERTICAL);
+        linearLayout.scrollToPosition(0);
+        rvJobs.setLayoutManager(linearLayout);
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+        rvJobs.addOnScrollListener(new EndlessRecyclerViewScrollListener(linearLayout) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                getMoreData();
+            }
+        });
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getDefaultData();
+            }
+        });
+        getDefaultData();
+    }
+
+    private void getMoreData() {
+        try {
+            if (!NetworkHelper.isOnline()) {
+                Toast.makeText(getActivity(), getString(R.string.cannot_connect_internet), Toast.LENGTH_SHORT).show();
+                return;
+            }
+            backendlessCollection.nextPage(new ProgressDialogCollectionCallBack<Job>(getActivity()) {
+                @Override
+                public void handleResponse(BackendlessCollection<Job> nextPageJobs) {
+                    backendlessCollection = nextPageJobs;
+                    addItemstoAdapter(nextPageJobs);
+                    //swipeContainer.setRefreshing(false);
+                    super.handleResponse(nextPageJobs);
+                }
+            });
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void getDefaultData() {
+        try {
+            if (!NetworkHelper.isOnline()) {
+                Toast.makeText(getActivity(), getString(R.string.cannot_connect_internet), Toast.LENGTH_SHORT).show();
+                return;
+            }
+            adapter.clear();
+            totalJobs.clear();
+            adapter.notifyDataSetChanged();
+            QueryOptions queryOptions = new QueryOptions();
+            queryOptions.setPageSize(JobApplication.PAGESIZE);
+
+            if (backendlessCollection == null || backendlessCollection.getTotalObjects() == 0) {
+                queryOptions.setOffset(JobApplication.PAGESIZE);
+            } else {
+                queryOptions.setOffset(backendlessCollection.getCurrentPage().size());
+            }
+            BackendlessDataQuery query = new BackendlessDataQuery(queryOptions);
+            this.jobRepo.pagingAsync(query, new ProgressDialogCollectionCallBack<Job>(getActivity()) {
+                @Override
+                public void handleResponse(BackendlessCollection<Job> jobsBackendlessCollection) {
+                    backendlessCollection = jobsBackendlessCollection;
+                    addItemstoAdapter(jobsBackendlessCollection);
+                    swipeContainer.setRefreshing(false);
+                    super.handleResponse(jobsBackendlessCollection);
+                }
+            });
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * Adds more items to adapter and notifies Android that dataset has changed.
+     *
+     * @param nextPage list of new items
+     */
+    private void addItemstoAdapter(BackendlessCollection<Job> nextPage) {
+//        totalJobs.addAll(nextPage.getCurrentPage());
+//        adapter.notifyDataSetChanged();
+        adapter.addRange(nextPage.getCurrentPage());
+    }
 }

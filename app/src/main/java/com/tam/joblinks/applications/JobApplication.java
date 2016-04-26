@@ -10,6 +10,7 @@ import com.backendless.Backendless;
 public class JobApplication extends Application {
     public static String currentMail = "";
     public static String previousPage = "";
+    public static final int PAGESIZE = 3;
     public static final int APPLY_JOB = 0;
     public static final int PUBLISH_JOB = 1;
     public static final String SERVER_URL = "https://api.backendless.com";

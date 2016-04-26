@@ -7,8 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tam.joblinks.R;
+import com.tam.joblinks.helpers.JobDbHelper;
 import com.tam.joblinks.models.Job;
 
 import java.util.List;
@@ -35,25 +37,29 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobsViewHolder
         return holder;
     }
 
+    private Job getCurrentJob(int position) {
+        return this.jobs.get(position);
+    }
+
     @Override
     public void onBindViewHolder(JobsViewHolder holder, int position) {
-        final Job job = this.jobs.get(position);
+        final Job job = getCurrentJob(position);
         holder.tvJobCity.setText(job.getCity());
-        holder.tvJobCompany.setText(job.displayCompanyOrUser());
+        holder.tvJobDescription.setText(job.getDescription());
         holder.tvJobTitle.setText(job.getTitle());
-        holder.btJobApply.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        holder.btJobSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+//        holder.btJobApply.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
+//
+//        holder.btJobSave.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
     }
 
     @Override
@@ -71,13 +77,13 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobsViewHolder
         notifyDataSetChanged();
     }
 
-    public static class JobsViewHolder extends RecyclerView.ViewHolder {
+    public class JobsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @Bind(R.id.tvJobTitle)
         TextView tvJobTitle;
 
         @Bind(R.id.tvJobCompany)
-        TextView tvJobCompany;
+        TextView tvJobDescription;
 
         @Bind(R.id.tvJobCity)
         TextView tvJobCity;
@@ -91,6 +97,22 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobsViewHolder
         public JobsViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            btJobSave.setOnClickListener(this);
+            btJobApply.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (v.getId() == btJobApply.getId()) {
+                // apply job
+            } else {
+                // save job
+                JobDbHelper jobDbHelper = JobDbHelper.getInstance(v.getContext());
+                int position = getLayoutPosition(); // gets item position
+                final Job job = getCurrentJob(position);
+                Toast.makeText(v.getContext(), "Current position: " + String.valueOf(position), Toast.LENGTH_SHORT).show();
+                jobDbHelper.saveJob(job);
+            }
         }
     }
 }
