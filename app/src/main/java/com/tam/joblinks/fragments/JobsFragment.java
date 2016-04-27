@@ -163,11 +163,11 @@ public class JobsFragment extends Fragment {
             QueryOptions queryOptions = new QueryOptions();
             queryOptions.setPageSize(JobApplication.PAGESIZE);
 
-            if (backendlessCollection == null || backendlessCollection.getTotalObjects() == 0) {
-                queryOptions.setOffset(JobApplication.PAGESIZE);
-            } else {
-                queryOptions.setOffset(backendlessCollection.getCurrentPage().size());
-            }
+//            if (backendlessCollection == null || backendlessCollection.getTotalObjects() == 0) {
+//                queryOptions.setOffset(JobApplication.PAGESIZE);
+//            } else {
+//                queryOptions.setOffset(backendlessCollection.getCurrentPage().size());
+//            }
             BackendlessDataQuery query = new BackendlessDataQuery(queryOptions);
             this.jobRepo.pagingAsync(query, new ProgressDialogCollectionCallBack<Job>(getActivity()) {
                 @Override

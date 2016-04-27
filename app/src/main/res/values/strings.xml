@@ -68,4 +68,9 @@
     <string name="submit">Submit</string>
     <string name="apply">Apply</string>
     <string name="save">Save</string>
+    <string name="unsave">Unsave</string>
+    <string name="save_job">This job is now saved</string>
+    <string name="unsave_job">This job is no longer saved</string>
+
+    <string name="something_wrong">This is something wrong!</string>
 </resources>

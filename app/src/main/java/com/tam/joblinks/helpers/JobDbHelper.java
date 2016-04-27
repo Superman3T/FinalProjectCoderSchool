@@ -67,8 +67,9 @@ public class JobDbHelper extends SQLiteOpenHelper {
         StringBuilder builder = new StringBuilder();
         builder.append("CREATE TABLE IF NOT EXISTS " + TABLE_JOBS + " (");
         builder.append(COL_RECORD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, ");
-        builder.append(COL_JOB_CITY + " TEXT, ");
         builder.append(COL_OBJECT_ID + " TEXT, ");
+        builder.append(COL_JOB_CITY + " TEXT, ");
+        //builder.append(COL_OBJECT_ID + " TEXT, ");
         builder.append(COL_TITLE + " TEXT, ");
         builder.append(COL_EXPIRATION_DATE + " TEXT, ");
         builder.append(COL_MAX_SALARY + " INTEGER , ");
@@ -94,6 +95,8 @@ public class JobDbHelper extends SQLiteOpenHelper {
             onCreate(db);
         }
     }
+
+
 
     public void addJob(Job job, boolean isViewed, boolean isSaved, boolean isApplied) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -201,7 +204,7 @@ public class JobDbHelper extends SQLiteOpenHelper {
         return getJobs(sql);
     }
 
-    public List<Job> getJobs(String sql) {
+    private List<Job> getJobs(String sql) {
         List<Job> jobs = new ArrayList<Job>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(sql, null);

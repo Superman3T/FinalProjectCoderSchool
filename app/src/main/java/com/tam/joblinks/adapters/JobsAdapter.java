@@ -103,15 +103,31 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobsViewHolder
 
         @Override
         public void onClick(View v) {
-            if (v.getId() == btJobApply.getId()) {
-                // apply job
-            } else {
-                // save job
-                JobDbHelper jobDbHelper = JobDbHelper.getInstance(v.getContext());
-                int position = getLayoutPosition(); // gets item position
-                final Job job = getCurrentJob(position);
-                Toast.makeText(v.getContext(), "Current position: " + String.valueOf(position), Toast.LENGTH_SHORT).show();
-                jobDbHelper.saveJob(job);
+            Context context = v.getContext();
+            try {
+
+                if (v.getId() == btJobApply.getId()) {
+                    // apply job
+                } else {
+                    JobDbHelper jobDbHelper = JobDbHelper.getInstance(context);
+                    int position = getLayoutPosition(); // gets item position
+                    final Job job = getCurrentJob(position);
+                    // save job
+                    if (btJobApply.getText().toString().toLowerCase().equals("save")) {
+
+
+                        Toast.makeText(v.getContext(), "Current position: " + String.valueOf(position), Toast.LENGTH_SHORT).show();
+                        jobDbHelper.saveJob(job);
+                        btJobSave.setText("Unsaved");
+                        Toast.makeText(context, context.getString(R.string.save_job), Toast.LENGTH_SHORT).show();
+                    } else {
+                        jobDbHelper.deleteJob(job.getObjectId());
+                        Toast.makeText(context, context.getString(R.string.unsave_job), Toast.LENGTH_SHORT).show();
+                        btJobSave.setText(context.getString(R.string.save));
+                    }
+                }
+            } catch (Exception ex) {
+                Toast.makeText(context, context.getString(R.string.something_wrong), Toast.LENGTH_SHORT).show();
             }
         }
     }
