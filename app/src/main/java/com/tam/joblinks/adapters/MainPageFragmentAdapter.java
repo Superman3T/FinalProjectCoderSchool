@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,7 +16,7 @@ import java.util.List;
 /**
  * Created by toan on 4/24/2016.
  */
-public class MainPageFragmentAdapter extends FragmentPagerAdapter {
+public class MainPageFragmentAdapter extends SmartFragmentStatePagerAdapter {
 
     private final List<Fragment> fragments = new ArrayList<>();
     private final List<String> fragmentTitles = new ArrayList<>();

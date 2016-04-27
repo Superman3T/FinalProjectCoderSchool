@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.tam.joblinks.R;
+import com.tam.joblinks.helpers.DateHelper;
 import com.tam.joblinks.models.Job;
 
 import java.util.List;
@@ -44,6 +45,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobsViewHolder
         holder.tvJobCity.setText(job.getCity());
         holder.tvJobDescription.setText(job.getDescription());
         holder.tvJobTitle.setText(job.getTitle());
+        holder.tvDate.setText(DateHelper.formatDate(job.getCreated()));
 //        holder.btJobApply.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -84,6 +86,9 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobsViewHolder
 
         @Bind(R.id.tvJobCity)
         TextView tvJobCity;
+
+        @Bind(R.id.tvDate)
+        TextView tvDate;
 
 //        @Bind(R.id.btJobSave)
 //        Button btJobSave;

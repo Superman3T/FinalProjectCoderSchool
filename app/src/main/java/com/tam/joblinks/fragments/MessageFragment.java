@@ -1,6 +1,5 @@
 package com.tam.joblinks.fragments;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,11 +12,11 @@ import android.view.ViewGroup;
 
 import com.backendless.BackendlessCollection;
 import com.tam.joblinks.R;
-import com.tam.joblinks.adapters.JobsAdapter;
-import com.tam.joblinks.interfaces.JobRepositoryInterface;
+import com.tam.joblinks.adapters.MessageAdapter;
 import com.tam.joblinks.interfaces.UserRepositoryInterface;
 import com.tam.joblinks.listeners.EndlessRecyclerViewScrollListener;
 import com.tam.joblinks.models.Job;
+import com.tam.joblinks.models.Message;
 import com.tam.joblinks.repositories.UserRepository;
 
 import java.util.ArrayList;
@@ -46,9 +45,9 @@ public class MessageFragment extends Fragment {
     private String TAG = MessageFragment.class.getSimpleName();
     private UserRepositoryInterface userRepo;
     private BackendlessCollection<Job> backendlessCollection;
-    private ArrayList<Job> totalJobs = new ArrayList<>();
+    private ArrayList<Message> totalMessages = new ArrayList<>();
 
-    private JobsAdapter adapter;
+    private MessageAdapter adapter;
 
     private LinearLayoutManager linearLayout;
 
@@ -71,7 +70,7 @@ public class MessageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_jobs, container, false);
+        View view = inflater.inflate(R.layout.fragment_message, container, false);
         ButterKnife.bind(this, view);
         linearLayout = new LinearLayoutManager(getActivity());
         return view;
@@ -81,7 +80,7 @@ public class MessageFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rvMessages.setItemAnimator(new SlideInUpAnimator());
-        adapter = new JobsAdapter(totalJobs);
+        adapter = new MessageAdapter(totalMessages);
         rvMessages.setAdapter(adapter);
         linearLayout.setOrientation(LinearLayoutManager.VERTICAL);
         linearLayout.scrollToPosition(0);

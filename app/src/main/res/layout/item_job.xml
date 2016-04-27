@@ -46,7 +46,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tvJobCompany"
+                        android:id="@+id/tvJobTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Company"
@@ -86,16 +86,16 @@
                 android:padding="@dimen/spacing_middle">
 
                 <TextView
+                    android:id="@+id/tvJobCompany"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sample Title" />
+                <TextView
                     android:id="@+id/tvJobCity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Sample Title" />
-
-                <TextView
-                    android:id="@+id/tvJobTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Sample Title" />
+                    android:text="Sample Title"
+                    android:textColor="@color/grey_hard"/>
             </LinearLayout>
 
             <View
