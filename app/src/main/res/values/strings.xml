@@ -71,6 +71,9 @@
     <string name="unsave">Unsave</string>
     <string name="save_job">This job is now saved</string>
     <string name="unsave_job">This job is no longer saved</string>
-
+    <string name="no_internet">No Internet found!</string>
+    <string name="no_internet2">Please check your connection and try again.</string>
+    <string name="no_internet3">No Internet found!</string>
     <string name="something_wrong">This is something wrong!</string>
+    <string name="try_again">TRY AGAIN</string>
 </resources>

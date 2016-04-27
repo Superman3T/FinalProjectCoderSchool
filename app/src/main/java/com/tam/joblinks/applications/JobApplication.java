@@ -14,9 +14,11 @@ public class JobApplication extends Application {
     public static final int APPLY_JOB = 0;
     public static final int PUBLISH_JOB = 1;
     public static final String SERVER_URL = "https://api.backendless.com";
+    public static final int TAP_JOB = 1;
     private static final String APP_VERSION = "v1";
     private static final String APP_ID = "B12EE488-15DE-8B01-FF81-39F47C8C6800";
     private static final String SECRET_KEY = "5AA333A3-327C-F2F9-FFA5-D4C917333500";
+
     @Override
     public void onCreate() {
         super.onCreate();
