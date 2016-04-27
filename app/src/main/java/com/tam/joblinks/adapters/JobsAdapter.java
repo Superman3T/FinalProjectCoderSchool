@@ -5,12 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.tam.joblinks.R;
-import com.tam.joblinks.helpers.JobDbHelper;
 import com.tam.joblinks.models.Job;
 
 import java.util.List;
@@ -77,7 +74,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobsViewHolder
         notifyDataSetChanged();
     }
 
-    public class JobsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class JobsViewHolder extends RecyclerView.ViewHolder { //implements View.OnClickListener {
 
         @Bind(R.id.tvJobTitle)
         TextView tvJobTitle;
@@ -88,47 +85,47 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobsViewHolder
         @Bind(R.id.tvJobCity)
         TextView tvJobCity;
 
-        @Bind(R.id.btJobSave)
-        Button btJobSave;
-
-        @Bind(R.id.btJobApply)
-        Button btJobApply;
+//        @Bind(R.id.btJobSave)
+//        Button btJobSave;
+//
+//        @Bind(R.id.btJobApply)
+//        Button btJobApply;
 
         public JobsViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            btJobSave.setOnClickListener(this);
-            btJobApply.setOnClickListener(this);
+//            btJobSave.setOnClickListener(this);
+//            btJobApply.setOnClickListener(this);
         }
 
-        @Override
-        public void onClick(View v) {
-            Context context = v.getContext();
-            try {
-
-                if (v.getId() == btJobApply.getId()) {
-                    // apply job
-                } else {
-                    JobDbHelper jobDbHelper = JobDbHelper.getInstance(context);
-                    int position = getLayoutPosition(); // gets item position
-                    final Job job = getCurrentJob(position);
-                    // save job
-                    if (btJobApply.getText().toString().toLowerCase().equals("save")) {
-
-
-                        Toast.makeText(v.getContext(), "Current position: " + String.valueOf(position), Toast.LENGTH_SHORT).show();
-                        jobDbHelper.saveJob(job);
-                        btJobSave.setText("Unsaved");
-                        Toast.makeText(context, context.getString(R.string.save_job), Toast.LENGTH_SHORT).show();
-                    } else {
-                        jobDbHelper.deleteJob(job.getObjectId());
-                        Toast.makeText(context, context.getString(R.string.unsave_job), Toast.LENGTH_SHORT).show();
-                        btJobSave.setText(context.getString(R.string.save));
-                    }
-                }
-            } catch (Exception ex) {
-                Toast.makeText(context, context.getString(R.string.something_wrong), Toast.LENGTH_SHORT).show();
-            }
-        }
+//        @Override
+//        public void onClick(View v) {
+//            Context context = v.getContext();
+//            try {
+//
+//                if (v.getId() == btJobApply.getId()) {
+//                    // apply job
+//                } else {
+//                    JobDbHelper jobDbHelper = JobDbHelper.getInstance(context);
+//                    int position = getLayoutPosition(); // gets item position
+//                    final Job job = getCurrentJob(position);
+//                    // save job
+//                    if (btJobApply.getText().toString().toLowerCase().equals("save")) {
+//
+//
+//                        Toast.makeText(v.getContext(), "Current position: " + String.valueOf(position), Toast.LENGTH_SHORT).show();
+//                        jobDbHelper.saveJob(job);
+//                        btJobSave.setText("Unsaved");
+//                        Toast.makeText(context, context.getString(R.string.save_job), Toast.LENGTH_SHORT).show();
+//                    } else {
+//                        jobDbHelper.deleteJob(job.getObjectId());
+//                        Toast.makeText(context, context.getString(R.string.unsave_job), Toast.LENGTH_SHORT).show();
+//                        btJobSave.setText(context.getString(R.string.save));
+//                    }
+//                }
+//            } catch (Exception ex) {
+//                Toast.makeText(context, context.getString(R.string.something_wrong), Toast.LENGTH_SHORT).show();
+//            }
+//        }
     }
 }
