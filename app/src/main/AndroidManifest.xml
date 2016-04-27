@@ -19,12 +19,13 @@
         <activity android:name=".activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activities.LoginActivity"
-            android:label="@string/title_activity_login"></activity>
+            android:label="@string/title_activity_login" />
         <activity
             android:name=".activities.RegisterAccountActivity"
             android:label="@string/title_activity_register_account" />
@@ -42,15 +43,12 @@
 
         <activity
             android:name=".activities.MainActivity"
-            android:label="@string/title_activity_main">
-
-        </activity>
+            android:label="@string/title_activity_main"></activity>
         <activity
             android:name=".activities.PublishJobActivity"
             android:label="@string/title_activity_publish_job"
-            android:parentActivityName=".activities.MainActivity">
-
-        </activity>
+            android:parentActivityName=".activities.MainActivity"></activity>
+        <activity android:name=".activities.JobStatusActivity"></activity>
     </application>
 
 </manifest>

@@ -13,6 +13,9 @@ public class JobApplication extends Application {
     public static final int PAGESIZE = 24;
     public static final int APPLY_JOB = 0;
     public static final int PUBLISH_JOB = 1;
+    public static final int SAVE_JOB = 2;
+    public static final String USER_ACTION_JOB = "USER_ACTION_JOB";
+
     public static final String SERVER_URL = "https://api.backendless.com";
     public static final int TAP_JOB = 1;
     private static final String APP_VERSION = "v1";

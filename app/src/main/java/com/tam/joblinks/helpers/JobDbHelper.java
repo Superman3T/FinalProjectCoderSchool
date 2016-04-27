@@ -45,8 +45,8 @@ public class JobDbHelper extends SQLiteOpenHelper {
     private static final String COL_CREATED_BY = "createdBy";
     private static final String COL_SHORT_DESCRIPTION = "shortDescription";
     private static final String COL_IS_VIEWED = "isViewed";
-    private static final String COL_IS_APPLIED = "isApplied";
-    private static final String COL_IS_SAVED = "isSaved";
+    public static final String COL_IS_APPLIED = "isApplied";
+    public static final String COL_IS_SAVED = "isSaved";
     private static final String COL_CURRENT_EMAIL = "email";
     private static final String TAG = "JobDbHelper";
     private static final String FORMAT_DATE = "yyyy-MM-dd HH:mm:ss";

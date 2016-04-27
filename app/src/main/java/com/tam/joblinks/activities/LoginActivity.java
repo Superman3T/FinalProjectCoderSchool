@@ -154,7 +154,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (JobApplication.previousPage.equals(PublishJobActivity.class.getSimpleName())) {
                         startActivity(new Intent(LoginActivity.this, PublishJobActivity.class));
                     } else {
-                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     }
                     //finish();
                 }
