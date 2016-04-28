@@ -1,5 +1,6 @@
 package com.tam.joblinks.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -8,7 +9,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Toast;
 
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
@@ -23,6 +23,7 @@ import com.tam.joblinks.fragments.JobsFragment;
 import com.tam.joblinks.fragments.MessageFragment;
 import com.tam.joblinks.fragments.ProfileFragment;
 import com.tam.joblinks.helpers.ProgressDialogCallBack;
+import com.tam.joblinks.helpers.SessionPreferencesHelper;
 import com.tam.joblinks.helpers.StringHelper;
 import com.tam.joblinks.interfaces.UserRepositoryInterface;
 import com.tam.joblinks.repositories.UserRepository;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     ViewPager viewPager;
     Toolbar toolbar;
     private UserRepositoryInterface userRepo;
+
     public MainActivity() {
         userRepo = new UserRepository(this);
     }
@@ -72,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         actionbar = getSupportActionBar();
-        actionbar.setDisplayHomeAsUpEnabled(false);
+        actionbar.setDisplayHomeAsUpEnabled(true);
 //Create the drawer
         // Create the AccountHeader
         buildDrawnerMenu(toolbar);
@@ -97,8 +99,13 @@ public class MainActivity extends AppCompatActivity {
 //                    }
 //                })
 //                .build();
-        PrimaryDrawerItem itemHome = new PrimaryDrawerItem().withName(R.string.drawer_item_home);
+        PrimaryDrawerItem itemHome = new PrimaryDrawerItem().withName(R.string.drawer_item_home)
+                .withIcon(getResources().getDrawable(R.drawable.ic_home_black_24dp));
         PrimaryDrawerItem itemSettings = new PrimaryDrawerItem().withName(R.string.drawer_item_settings);
+        PrimaryDrawerItem itemApplyJob = new PrimaryDrawerItem().withName(R.string.drawer_item_applied_job)
+                .withIcon(getResources().getDrawable(R.drawable.ic_nav_saved));
+        PrimaryDrawerItem itemSaveJob = new PrimaryDrawerItem().withName(R.string.drawer_item_saved_job)
+                .withIcon(getResources().getDrawable(R.drawable.ic_nav_saved));
         List<IDrawerItem> items = new ArrayList<>();
 
 //        Drawer result = new DrawerBuilder()
@@ -126,6 +133,9 @@ public class MainActivity extends AppCompatActivity {
                 .withToolbar(toolbar)
                 .addDrawerItems(
                         itemHome,
+                        new DividerDrawerItem(),
+                        itemApplyJob,
+                        itemSaveJob,
                         new DividerDrawerItem()
                 )
                 .addDrawerItems()
@@ -133,16 +143,22 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         // do something with the clicked item :D
-                        Toast.makeText(MainActivity.this, ((Nameable) drawerItem).getName().getText(MainActivity.this), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity.this, ((Nameable) drawerItem).getName().getText(MainActivity.this), Toast.LENGTH_SHORT).show();
+                        String name = ((Nameable) drawerItem).getName().getText(MainActivity.this);
+                        onActionDrawnerItem(name);
                         return false;
                     }
                 });
-        if (StringHelper.isNullOrEmpty(JobApplication.currentMail)) {
-            PrimaryDrawerItem logoutItem = new PrimaryDrawerItem().withName(R.string.drawer_item_login);
-            drawerBuilder.addDrawerItems(logoutItem);
+        PrimaryDrawerItem logInOutItem = null;
+        PrimaryDrawerItem registerItem = null;
+        if (StringHelper.isNullOrEmpty(JobApplication.currentMail)) { // not login yet
+            logInOutItem = new PrimaryDrawerItem().withName(R.string.drawer_item_login);
+            registerItem = new PrimaryDrawerItem().withName(R.string.drawer_item_register);
+            drawerBuilder.addDrawerItems(logInOutItem);
+            drawerBuilder.addDrawerItems(registerItem);
         } else {
-            PrimaryDrawerItem loginItem = new PrimaryDrawerItem().withName(R.string.drawer_item_logout);
-            drawerBuilder.addDrawerItems(loginItem);
+            logInOutItem = new PrimaryDrawerItem().withName(R.string.drawer_item_logout);
+            drawerBuilder.addDrawerItems(logInOutItem);
         }
         drawerBuilder.build();
     }
@@ -150,11 +166,33 @@ public class MainActivity extends AppCompatActivity {
     private void onActionDrawnerItem(String name) {
         if (name.equals(getString(R.string.drawer_item_logout))) {
             JobApplication.currentMail = "";
-            this.userRepo.logoutAsync(new ProgressDialogCallBack<Void>(MainActivity.this));
-            if (result != null) {
-                result.closeDrawer();
-                buildDrawnerMenu(toolbar);
-            }
+            this.userRepo.logoutAsync(new ProgressDialogCallBack<Void>(MainActivity.this) {
+                @Override
+                public void handleResponse(Void response) {
+                    super.handleResponse(response);
+                    JobApplication.currentMail = "";
+                    SessionPreferencesHelper session = new SessionPreferencesHelper(MainActivity.this);
+                    session.logoutUser();
+                }
+            });
+//            if (result != null) {
+//                result.closeDrawer();
+//                buildDrawnerMenu(toolbar);
+//            }
+        } else if (name.equals(getString(R.string.drawer_item_saved_job))) {
+            Intent intent = new Intent(MainActivity.this, JobStatusActivity.class);
+            intent.putExtra(JobApplication.USER_ACTION_JOB, JobApplication.SAVE_JOB);
+            startActivity(intent);
+        } else if (name.equals(getString(R.string.drawer_item_applied_job))) {
+            Intent intent = new Intent(MainActivity.this, JobStatusActivity.class);
+            intent.putExtra(JobApplication.USER_ACTION_JOB, JobApplication.APPLY_JOB);
+            startActivity(intent);
+        } else if (name.equals(getString(R.string.drawer_item_register))) {
+            Intent intent = new Intent(MainActivity.this, RegisterAccountActivity.class);
+            startActivity(intent);
+        } else if (name.equals(getString(R.string.drawer_item_login))) {
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -173,6 +211,7 @@ public class MainActivity extends AppCompatActivity {
     private void addTabIcons() {
         pagerAdapter.setTabIcons(tabLayout);
     }
+
     private void setupTabClick() {
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -181,10 +220,14 @@ public class MainActivity extends AppCompatActivity {
                 viewPager.setCurrentItem(position);
                 actionbar.setTitle(pagerAdapter.getTitle(position));
             }
+
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) { }
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
             @Override
-            public void onTabReselected(TabLayout.Tab tab) { }
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
         });
     }
 }

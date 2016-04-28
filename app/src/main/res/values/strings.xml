@@ -81,5 +81,6 @@
     <string name="drawer_item_saved_job">Saved Jobs</string>
     <string name="drawer_item_applied_job">Applied Jobs</string>
     <string name="drawer_item_login">Sign In</string>
+    <string name="drawer_item_register">Register</string>
     <string name="drawer_item_logout">Sign Out</string>
 </resources>
