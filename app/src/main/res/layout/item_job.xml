@@ -89,7 +89,9 @@
                     android:id="@+id/tvJobCompany"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Sample Title" />
+                    android:text="Sample Title"
+                    android:maxLength="@integer/char150"
+                    android:ellipsize="end" />
                 <TextView
                     android:id="@+id/tvJobCity"
                     android:layout_width="match_parent"

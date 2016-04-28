@@ -1,6 +1,7 @@
 package com.tam.joblinks.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.tam.joblinks.R;
+import com.tam.joblinks.activities.JobDetailsActivity;
 import com.tam.joblinks.helpers.DateHelper;
+import com.tam.joblinks.helpers.JobDbHelper;
 import com.tam.joblinks.models.Job;
 
 import java.util.List;
@@ -76,7 +79,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobsViewHolder
         notifyDataSetChanged();
     }
 
-    public class JobsViewHolder extends RecyclerView.ViewHolder { //implements View.OnClickListener {
+    public class JobsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @Bind(R.id.tvJobTitle)
         TextView tvJobTitle;
@@ -99,8 +102,25 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobsViewHolder
         public JobsViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(this);
 //            btJobSave.setOnClickListener(this);
 //            btJobApply.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            Context context = v.getContext();
+            int position = getLayoutPosition(); // gets item position
+            Job job = jobs.get(position);
+            Intent intent = new Intent(context, JobDetailsActivity.class);
+            intent.putExtra(JobDbHelper.COL_TITLE, job.getTitle());
+            intent.putExtra(JobDbHelper.COL_JOB_CITY, job.getCity());
+
+            intent.putExtra(JobDbHelper.COL_CREATED_DATE, DateHelper.formatDate(job.getCreated()));
+            intent.putExtra(JobDbHelper.COL_DESCRIPTION, job.getDescription());
+            intent.putExtra(JobDbHelper.COL_CREATED_BY, job.getCreatedBy());
+            context.startActivity(intent);
+            //ActivityNewsDetails.navigate((ActivityMain) getActivity(), v.findViewById(R.id.image), obj);
         }
 
 //        @Override

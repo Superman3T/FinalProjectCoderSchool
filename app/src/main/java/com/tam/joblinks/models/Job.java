@@ -1,5 +1,8 @@
 package com.tam.joblinks.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.tam.joblinks.helpers.StringHelper;
 
 import java.util.Date;
@@ -7,7 +10,7 @@ import java.util.Date;
 /**
  * Created by toan on 4/13/2016.
  */
-public class Job {
+public class Job{
     private String city;
     private String objectId;
     private String title;

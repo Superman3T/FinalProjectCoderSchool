@@ -38,6 +38,9 @@ public class LoginActivity extends AppCompatActivity {
 
     @Bind(R.id.tvRegisterLink)
     TextView tvRegisterLink;
+
+    @Bind(R.id.tvHomePage)
+    TextView tvHomePage;
 //
 //    @Bind(R.id.tvForgotPassword)
 //    TextView tvForgotPassword;
@@ -84,6 +87,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this, RegisterAccountActivity.class));
+                finish();
+            }
+        });
+
+        tvHomePage.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 finish();
             }
         });
