@@ -1,6 +1,7 @@
 package com.tam.joblinks.interfaces;
 
 import com.backendless.BackendlessUser;
+import com.backendless.async.callback.BackendlessCallback;
 import com.tam.joblinks.helpers.ProgressDialogCallBack;
 import com.tam.joblinks.models.User;
 import com.tam.joblinks.models.ViewUserLogin;
@@ -15,7 +16,8 @@ public interface UserRepositoryInterface extends BaseInterface<User> {
     void loginAsync(ViewUserLogin model, ProgressDialogCallBack<BackendlessUser> callBack);
     void logout();
     void logoutAsync();
-    void logoutAsync(ProgressDialogCallBack<Void> callBack);
+    void logoutAsync(BackendlessCallback<Void> callBack);
+    //void logoutAsync(ProgressDialogCallBack<Void> callBack);
     void register(ViewUserResgister model);
     void registerAsync(ViewUserResgister model);
     void registerAsync(ViewUserResgister model, ProgressDialogCallBack<BackendlessUser> callBack);

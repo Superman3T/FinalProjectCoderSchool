@@ -7,6 +7,7 @@ import android.util.Log;
 import com.backendless.Backendless;
 import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
+import com.backendless.async.callback.BackendlessCallback;
 import com.backendless.exceptions.BackendlessException;
 import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.local.UserIdStorageFactory;
@@ -96,7 +97,7 @@ public class UserRepository extends BaseRepository<User> implements UserReposito
     }
 
     @Override
-    public void logoutAsync(ProgressDialogCallBack<Void> callBack) {
+    public void logoutAsync(BackendlessCallback<Void> callBack) {
         Backendless.UserService.logout(callBack);
     }
 

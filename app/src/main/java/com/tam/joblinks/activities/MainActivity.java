@@ -22,6 +22,7 @@ import com.tam.joblinks.applications.JobApplication;
 import com.tam.joblinks.fragments.JobsFragment;
 import com.tam.joblinks.fragments.MessageFragment;
 import com.tam.joblinks.fragments.ProfileFragment;
+import com.tam.joblinks.helpers.DefaultCallback;
 import com.tam.joblinks.helpers.ProgressDialogCallBack;
 import com.tam.joblinks.helpers.SessionPreferencesHelper;
 import com.tam.joblinks.helpers.StringHelper;
@@ -71,16 +72,19 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
         ButterKnife.bind(this);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        actionbar = getSupportActionBar();
-        actionbar.setDisplayHomeAsUpEnabled(true);
-//Create the drawer
-        // Create the AccountHeader
+        initToolbar();
+
         buildDrawnerMenu(toolbar);
         addTabs();
         addTabIcons();
         setupTabClick();
+    }
+
+    private void initToolbar() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
     }
 
     private void buildDrawnerMenu(Toolbar toolbar) {
@@ -166,13 +170,16 @@ public class MainActivity extends AppCompatActivity {
     private void onActionDrawnerItem(String name) {
         if (name.equals(getString(R.string.drawer_item_logout))) {
             JobApplication.currentMail = "";
-            this.userRepo.logoutAsync(new ProgressDialogCallBack<Void>(MainActivity.this) {
+
+            this.userRepo.logoutAsync(new DefaultCallback<Void>(MainActivity.this) {
                 @Override
                 public void handleResponse(Void response) {
                     super.handleResponse(response);
                     JobApplication.currentMail = "";
                     SessionPreferencesHelper session = new SessionPreferencesHelper(MainActivity.this);
                     session.logoutUser();
+                    finish();
+                    startActivity(getIntent());
                 }
             });
 //            if (result != null) {
