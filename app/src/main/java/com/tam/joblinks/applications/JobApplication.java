@@ -3,6 +3,7 @@ package com.tam.joblinks.applications;
 import android.app.Application;
 
 import com.backendless.Backendless;
+import com.tam.joblinks.helpers.StringHelper;
 
 /**
  * Created by toan on 4/14/2016.
@@ -27,5 +28,12 @@ public class JobApplication extends Application {
         super.onCreate();
         Backendless.setUrl(SERVER_URL);
         Backendless.initApp(this, APP_ID, SECRET_KEY, APP_VERSION);
+    }
+
+    public static boolean isLogined() {
+        if (StringHelper.isNullOrEmpty(JobApplication.currentMail)) {
+            return false;
+        }
+        return  true;
     }
 }

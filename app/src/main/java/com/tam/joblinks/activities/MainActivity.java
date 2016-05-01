@@ -6,7 +6,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
@@ -23,7 +22,6 @@ import com.tam.joblinks.fragments.JobsFragment;
 import com.tam.joblinks.fragments.MessageFragment;
 import com.tam.joblinks.fragments.ProfileFragment;
 import com.tam.joblinks.helpers.DefaultCallback;
-import com.tam.joblinks.helpers.ProgressDialogCallBack;
 import com.tam.joblinks.helpers.SessionPreferencesHelper;
 import com.tam.joblinks.helpers.StringHelper;
 import com.tam.joblinks.interfaces.UserRepositoryInterface;
@@ -35,7 +33,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
 
     private FloatingActionButton fab;
@@ -52,6 +50,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Bind(R.id.viewpager)
     ViewPager viewPager;
+
+    @Bind(R.id.fabSearch)
+    FloatingActionButton fabSearch;
+
     Toolbar toolbar;
     private UserRepositoryInterface userRepo;
 
@@ -78,6 +80,13 @@ public class MainActivity extends AppCompatActivity {
         addTabs();
         addTabIcons();
         setupTabClick();
+
+        fabSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showToast("pp");
+            }
+        });
     }
 
     private void initToolbar() {
@@ -150,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
                         //Toast.makeText(MainActivity.this, ((Nameable) drawerItem).getName().getText(MainActivity.this), Toast.LENGTH_SHORT).show();
                         String name = ((Nameable) drawerItem).getName().getText(MainActivity.this);
                         onActionDrawnerItem(name);
-                        return false;
+                        return true;
                     }
                 });
         PrimaryDrawerItem logInOutItem = null;
@@ -197,6 +206,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (name.equals(getString(R.string.drawer_item_register))) {
             Intent intent = new Intent(MainActivity.this, RegisterAccountActivity.class);
             startActivity(intent);
+
         } else if (name.equals(getString(R.string.drawer_item_login))) {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);

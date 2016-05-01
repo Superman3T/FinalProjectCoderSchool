@@ -49,5 +49,11 @@
             android:layout_height="match_parent" />
 
     </LinearLayout>
-
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@android:drawable/ic_menu_search" />
 </android.support.design.widget.CoordinatorLayout>

@@ -64,11 +64,15 @@ public class PublishJobActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publish_job);
         parentView = findViewById(android.R.id.content);
+        initToolbar();
+        initUI();
+        setJobValues();
+    }
+
+    private void initToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        initUI();
-        setJobValues();
     }
 
     @Override
@@ -119,7 +123,7 @@ public class PublishJobActivity extends BaseActivity {
 
     private void publishJob() {
         if (StringHelper.isNullOrEmpty(JobApplication.currentMail)) {
-            Snackbar.make(parentView, R.string.please_sign_in, Snackbar.LENGTH_LONG)
+            Snackbar.make(parentView, R.string.please_sign_in_to_publish, Snackbar.LENGTH_LONG)
                     .setAction(R.string.action_sign_in, new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -135,6 +139,7 @@ public class PublishJobActivity extends BaseActivity {
         } else {
             Job newJob = new Job();
             getJobValues();
+            newJob.setCreated(DateHelper.now());
             newJob.setCity(jobCity);
             newJob.setTitle(jobTitle);
             newJob.setSalary(jobSalary);

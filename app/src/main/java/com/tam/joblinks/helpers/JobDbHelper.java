@@ -27,7 +27,7 @@ public class JobDbHelper extends SQLiteOpenHelper {
 
     private static JobDbHelper curInstance;
     private static final String DATABASE_NAME = "JobDatabase";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String TABLE_JOBS = "jobs";
     private static final String COL_RECORD_ID = "recordId";
     public static final String COL_JOB_CITY = "city";
@@ -97,7 +97,6 @@ public class JobDbHelper extends SQLiteOpenHelper {
     }
 
 
-
     public void addJob(Job job, boolean isViewed, boolean isSaved, boolean isApplied) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.beginTransaction();
@@ -105,11 +104,12 @@ public class JobDbHelper extends SQLiteOpenHelper {
         int applied = (isApplied ? 1 : 0);
         int saved = (isSaved ? 1 : 0);
         try {
+            String expirationDate = getDateTime(job.getExpirationDate());
             ContentValues values = new ContentValues();
             values.put(COL_JOB_CITY, job.getCity());
             values.put(COL_OBJECT_ID, job.getObjectId());
             values.put(COL_TITLE, job.getTitle());
-            values.put(COL_EXPIRATION_DATE, getDateTime(job.getExpirationDate()));
+            values.put(COL_EXPIRATION_DATE, expirationDate);
             values.put(COL_MAX_SALARY, job.getMax_salary());
             values.put(COL_MIN_SALARY, job.getMin_salary());
             values.put(COL_SALARY, job.getSalary());
@@ -228,6 +228,29 @@ public class JobDbHelper extends SQLiteOpenHelper {
         return jobs;
     }
 
+    public boolean isExistingJob(String objectId) {
+        SQLiteDatabase db = getReadableDatabase();
+        String Query = "Select * from " + TABLE_JOBS + " where " + COL_OBJECT_ID + " = '" + objectId + "'";
+        Cursor cursor = db.rawQuery(Query, null);
+        try {
+
+            if (cursor.getCount() <= 0) {
+                cursor.close();
+                return false;
+            }
+        } catch (Exception ex) {
+            Log.d(TAG, "Error while trying to get all getSavedJobss. Error: " + ex.getMessage());
+        } finally {
+            if (cursor != null && cursor.isClosed() == false) {
+                cursor.close();
+            }
+            if (db != null && db.isOpen()) {
+                db.close();
+            }
+        }
+        return true;
+    }
+
     @NonNull
     private Job setJob(Cursor cursor) {
         Job job = new Job();
@@ -265,6 +288,9 @@ public class JobDbHelper extends SQLiteOpenHelper {
     }
 
     private String getDateTime(Date date) {
+        if (date == null) {
+            return DateHelper.formatDate(DateHelper.now());
+        }
         SimpleDateFormat dateFormat = new SimpleDateFormat(
                 FORMAT_DATE, Locale.getDefault());
         return dateFormat.format(date);

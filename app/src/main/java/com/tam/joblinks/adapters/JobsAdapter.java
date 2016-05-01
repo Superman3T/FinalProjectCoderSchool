@@ -49,6 +49,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobsViewHolder
         holder.tvJobDescription.setText(job.getDescription());
         holder.tvJobTitle.setText(job.getTitle());
         holder.tvDate.setText(DateHelper.formatDate(job.getCreated()));
+
 //        holder.btJobApply.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -113,12 +114,16 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobsViewHolder
             int position = getLayoutPosition(); // gets item position
             Job job = jobs.get(position);
             Intent intent = new Intent(context, JobDetailsActivity.class);
+
             intent.putExtra(JobDbHelper.COL_TITLE, job.getTitle());
             intent.putExtra(JobDbHelper.COL_JOB_CITY, job.getCity());
-
+            intent.putExtra(JobDbHelper.COL_OBJECT_ID, job.getObjectId());
             intent.putExtra(JobDbHelper.COL_CREATED_DATE, DateHelper.formatDate(job.getCreated()));
             intent.putExtra(JobDbHelper.COL_DESCRIPTION, job.getDescription());
+//
             intent.putExtra(JobDbHelper.COL_CREATED_BY, job.getCreatedBy());
+
+//            intent.putExtra("JobInstance", job);
             context.startActivity(intent);
             //ActivityNewsDetails.navigate((ActivityMain) getActivity(), v.findViewById(R.id.image), obj);
         }

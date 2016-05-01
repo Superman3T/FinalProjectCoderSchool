@@ -17,7 +17,8 @@
     <string name="prompt_last_name">Last name</string>
     <string name="prompt_salary">Salary</string>
     <string name="action_sign_in">Sign in</string>
-    <string name="please_sign_in">Please sign in to publish a job.</string>
+    <string name="please_sign_in_to_publish">Please sign in to publish a job.</string>
+    <string name="please_sign_in_to_apply">Please sign in to apply job.</string>
     <string name="action_register">Register</string>
     <string name="link_to_register">No account yet? Create one.</string>
     <string name="home_page">Back to home.</string>
@@ -57,7 +58,7 @@
     <string name="facebook_app_id">1005158932854569</string>
     <string name="profile">Profile</string>
     <string name="home">Home</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Job Links</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -73,10 +74,12 @@
     <string name="unsave">Unsave</string>
     <string name="save_job">This job is now saved</string>
     <string name="unsave_job">This job is no longer saved</string>
+    <string name="already_save_job">This job is already saved</string>
     <string name="no_internet">No Internet found!</string>
     <string name="no_internet2">Please check your connection and try again.</string>
     <string name="no_internet3">No Internet found!</string>
     <string name="something_wrong">This is something wrong!</string>
+    <string name="apply_job_successfully">You applied this job successfully</string>
     <string name="try_again">TRY AGAIN</string>
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_settings">Settings</string>
@@ -85,6 +88,6 @@
     <string name="drawer_item_login">Sign In</string>
     <string name="drawer_item_register">Register</string>
     <string name="drawer_item_logout">Sign Out</string>
-    <string name="title_activity_job_details">JobDetailsActivity</string>
+    <string name="title_activity_job_details">Job Details</string>
     <string name="details">Details</string>
 </resources>

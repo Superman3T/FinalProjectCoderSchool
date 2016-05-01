@@ -48,7 +48,10 @@
             android:name=".activities.PublishJobActivity"
             android:label="@string/title_activity_publish_job"
             android:parentActivityName=".activities.MainActivity" />
-        <activity android:name=".activities.JobStatusActivity" />
+        <activity android:name=".activities.JobStatusActivity"
+            android:parentActivityName=".activities.MainActivity">
+
+        </activity>
         <activity
             android:name=".activities.JobDetailsActivity"
             android:label="@string/title_activity_job_details"
