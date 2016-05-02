@@ -81,7 +81,7 @@ public class RegisterAccountActivity extends BaseActivity {
                 @Override
                 public void handleResponse(BackendlessUser response) {
                     super.handleResponse(response);
-                    startActivity(new Intent(RegisterAccountActivity.this, HomeActivity.class));
+                    startActivity(new Intent(RegisterAccountActivity.this, MainActivity.class));
                     finish();
                 }
             });

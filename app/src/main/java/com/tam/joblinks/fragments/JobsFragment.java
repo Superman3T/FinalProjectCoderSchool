@@ -109,7 +109,7 @@ public class JobsFragment extends Fragment {
         adapter = new JobsAdapter(totalJobs);
         rvJobs.setAdapter(adapter);
         linearLayout.setOrientation(LinearLayoutManager.VERTICAL);
-        linearLayout.scrollToPosition(0);
+//        linearLayout.scrollToPosition(0);
         rvJobs.setLayoutManager(linearLayout);
         // Configure the refreshing colors
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,

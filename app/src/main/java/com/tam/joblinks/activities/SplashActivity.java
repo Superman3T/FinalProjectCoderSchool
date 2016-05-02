@@ -11,17 +11,14 @@ import com.tam.joblinks.R;
 import com.tam.joblinks.applications.JobApplication;
 import com.tam.joblinks.helpers.SessionPreferencesHelper;
 import com.tam.joblinks.helpers.StringHelper;
-import com.tam.joblinks.interfaces.UserRepositoryInterface;
-import com.tam.joblinks.repositories.UserRepository;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class SplashActivity extends AppCompatActivity {
 
-    UserRepositoryInterface userRepo;
     public SplashActivity() {
-        this.userRepo = new UserRepository(this);
+
     }
 
     @Override

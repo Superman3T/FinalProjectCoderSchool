@@ -1,26 +1,40 @@
 <resources>
+    <style name="MyTheme" parent="Base.MyTheme"></style>
 
-    <style name="DrawerItemTextStyle" parent="@style/TextAppearance.AppCompat.Medium">
-        <item name="android:textStyle">bold</item>
+    <style name="Base.MyTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowActionBarOverlay">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/bg_light</item>
     </style>
 
-    <style name="DrawerStyle" parent="@style/ThemeOverlay.AppCompat.Light">
-        <item name="colorControlHighlight">#0D000000</item> 
-        <item name="listPreferredItemHeightSmall">60dp</item>
+    <style name="MyAppDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/accent</item>
     </style>
 
-    <style name="AppTheme" parent="BaseTheme" />
-
-    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item> 
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item> 
-        <item name="colorControlHighlight">@color/colorAccentLight</item> 
-        <item name="colorAccent">@color/colorAccent</item>
-        <!--control color-->
-        <!--<item name="colorControlNormal">@color/colorPrimary</item>-->
-        <!--<item name="colorControlActivated">@color/colorAccent</item>-->
-        <!--<item name="colorControlHighlight">@color/colorAccentLight</item>-->
+    <style name="Widget.MyApp.HeaderBar.Spinner" parent="Widget.AppCompat.Light.Spinner.DropDown.ActionBar">
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:dropDownSelector">?attr/selectableItemBackground</item>
+        <item name="android:divider">@null</item>
+        <item name="overlapAnchor">true</item>
     </style>
+
+    <style name="CollapsedTitleSpaceFix" parent="Base.TextAppearance.AppCompat.Title">
+        <item name="android:layout_marginTop">23dp</item>
+    </style>
+
+    <style name="MyTheme.Detail" parent="MyTheme"></style>
+
+    <color name="bg_light">#FAFAFA</color>
+
+    <style name="MyTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="MyTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="FabStyle">
         <item name="android:layout_width">wrap_content</item>
@@ -32,18 +46,9 @@
         <item name="rippleColor">@android:color/white</item>
     </style>
 
-    <style name="TitleWithShadow">
-        <item name="android:textColor">#FFFFFF</item>
-        <item name="android:shadowColor">#cc000000</item>
-        <item name="android:shadowDx">1</item>
-        <item name="android:shadowDy">1</item>
-        <item name="android:shadowRadius">5</item>
-    </style>
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
         <item name="colorControlNormal">@android:color/white</item>
     </style>
-
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="Widget.CardContent" parent="android:Widget">
@@ -68,14 +73,12 @@
         <item name="tabTextAppearance">@style/MyCustomTabTextAppearance</item>
         <item name="tabSelectedTextColor">?android:textColorPrimary</item>
     </style>
-
     <style name="MyCustomTabTextAppearance" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">?android:textColorSecondary</item>
         <item name="android:textStyle">bold</item>
         <item name="textAllCaps">true</item>
     </style>
-
     <style name="RippleStyleWhite">
         <item name="mrl_rippleOverlay">true</item>
         <item name="mrl_rippleColor">#80FFFFFF</item>
@@ -83,7 +86,6 @@
         <item name="mrl_rippleHover">true</item>
         <item name="mrl_rippleAlpha">0.2</item>
     </style>
-
     <style name="RippleStyleBlack" parent="RippleStyleWhite">
         <item name="mrl_rippleColor">#8096989A</item>
     </style>

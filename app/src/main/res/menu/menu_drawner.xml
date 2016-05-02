@@ -7,17 +7,16 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_nav_home"
+            android:icon="@drawable/ic_home_black_24dp"
             android:title="@string/drawer_item_home"
             android:checked="true"/>
+
         <item
             android:id="@+id/nav_saved"
             android:icon="@drawable/ic_nav_saved"
-            android:title="@string/drawer_item_saved_job"/>
-        <item
-            android:id="@+id/nav_setting"
-            android:icon="@drawable/ic_nav_setting"
-            android:title="@string/drawer_item_applied_job" />
+            android:title="@string/drawer_item_saved_job"
+            app:actionLayout="@layout/menu_counter"/>
+
     </group>
 
 </menu>
