@@ -2,10 +2,10 @@ package com.tam.joblinks.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.backendless.BackendlessUser;
 import com.tam.joblinks.R;
@@ -37,9 +37,9 @@ public class RegisterAccountActivity extends BaseActivity {
     @Bind(R.id.edRegisterPassword)
     EditText edRegisterPassword;
 
-    @Bind(R.id.tvHomePage)
-    TextView tvHomePage;
-
+//    @Bind(R.id.tvHomePage)
+//    TextView tvHomePage;
+//
 
     private String email;
     private String firstName;
@@ -56,18 +56,27 @@ public class RegisterAccountActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_account);
         ButterKnife.bind(this);
-        tvHomePage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        initToolbar();
+//        tvHomePage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
+//        setSupportActionBar(toolbar);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         btRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 registerUser();
             }
         });
+    }
+
+    private void initToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void registerUser() {

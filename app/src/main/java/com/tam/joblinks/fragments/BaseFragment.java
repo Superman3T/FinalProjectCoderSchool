@@ -1,9 +1,18 @@
 package com.tam.joblinks.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 
+import com.tam.joblinks.R;
+import com.tam.joblinks.activities.PublishJobActivity;
 import com.tam.joblinks.helpers.NetworkHelper;
 
 /**
@@ -11,7 +20,7 @@ import com.tam.joblinks.helpers.NetworkHelper;
  */
 public abstract class BaseFragment extends Fragment {
     boolean hasInternet;
-
+    protected View view;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -19,27 +28,29 @@ public abstract class BaseFragment extends Fragment {
         hasInternet = NetworkHelper.isOnline();
     }
 
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        // Inflate the layout for this fragment
-//        View view = inflater.inflate(R.layout.fragment_tweets_list, container, false);
-//        ButterKnife.bind(this, view);
-//        linearLayout = new LinearLayoutManager(getActivity());
-//        return view;
-//    }
-//
-//    @Override
-//    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//
-//        btTryAgain.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                getDefaultData();
-//            }
-//        });
-//    }
-//
-    public abstract void getDefaultData();
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_main_fragment, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.item_publish_job:
+                //Snackbar.make(view, item.getTitle() + " Clicked", Snackbar.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), PublishJobActivity.class);
+                startActivity(intent);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // activate fragment menu
+        setHasOptionsMenu(true);
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
 }

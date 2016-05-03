@@ -169,21 +169,21 @@
                     android:textSize="@dimen/text_medium" />
             </LinearLayout>
         </LinearLayout>
-        <TextView
-            android:id="@+id/tvHomePage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp4"
-            android:layout_alignParentBottom="true"
-            android:clickable="true"
-            android:gravity="center_horizontal"
-            android:linksClickable="false"
-            android:paddingTop="@dimen/dp10"
-            android:singleLine="false"
-            android:text="@string/home_page"
-            android:textColor="@android:color/holo_blue_light"
-            android:textSize="@dimen/text_medium"
-            android:layout_weight="0"/>
+        <!--<TextView-->
+            <!--android:id="@+id/tvHomePage"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="@dimen/dp4"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:clickable="true"-->
+            <!--android:gravity="center_horizontal"-->
+            <!--android:linksClickable="false"-->
+            <!--android:paddingTop="@dimen/dp10"-->
+            <!--android:singleLine="false"-->
+            <!--android:text="@string/home_page"-->
+            <!--android:textColor="@android:color/holo_blue_light"-->
+            <!--android:textSize="@dimen/text_medium"-->
+            <!--android:layout_weight="0"/>-->
 
     </LinearLayout>
 

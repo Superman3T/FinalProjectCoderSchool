@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
+import com.tam.joblinks.applications.JobApplication;
 import com.tam.joblinks.models.User;
 
 /**
@@ -49,6 +50,7 @@ public class SessionPreferencesHelper {
         editor.putBoolean(IS_LOGGED_IN, true);
         editor.putString(User.EMAIL_KEY, email);
         editor.commit();
+        JobApplication.currentMail = email;
     }
 
 //    public void checkLogin() {
@@ -95,6 +97,7 @@ public class SessionPreferencesHelper {
         // clear all data from Shared Preferences
         this.editor.clear();
         this.editor.commit();
+        JobApplication.currentMail = "";
     }
 
     private boolean isLoggedIn() {

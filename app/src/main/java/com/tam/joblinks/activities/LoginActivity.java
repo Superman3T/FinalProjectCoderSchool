@@ -38,9 +38,9 @@ public class LoginActivity extends AppCompatActivity {
 
     @Bind(R.id.tvRegisterLink)
     TextView tvRegisterLink;
-
-    @Bind(R.id.tvHomePage)
-    TextView tvHomePage;
+//
+//    @Bind(R.id.tvHomePage)
+//    TextView tvHomePage;
 //
 //    @Bind(R.id.tvForgotPassword)
 //    TextView tvForgotPassword;
@@ -91,18 +91,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        tvHomePage.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                finish();
-            }
-        });
-//
-//        tvForgotPassword.setOnClickListener(new OnClickListener() {
+//        tvHomePage.setOnClickListener(new OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
+//                //startActivity(new Intent(LoginActivity.this, MainActivity.class));
 //                finish();
 //            }
 //        });
@@ -161,7 +153,7 @@ public class LoginActivity extends AppCompatActivity {
                     super.handleResponse(response);
                     SessionPreferencesHelper session = new SessionPreferencesHelper(LoginActivity.this);
                     session.createLoginSession(email);
-                    JobApplication.currentMail = email;
+
                     if (JobApplication.previousPage.equals(PublishJobActivity.class.getSimpleName())) {
                         startActivity(new Intent(LoginActivity.this, PublishJobActivity.class));
                     } else {

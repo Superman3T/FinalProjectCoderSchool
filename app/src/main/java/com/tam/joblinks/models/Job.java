@@ -10,7 +10,7 @@ import java.util.Date;
 /**
  * Created by toan on 4/13/2016.
  */
-public class Job{
+public class Job  implements Parcelable{
     private String city;
     private String objectId;
     private String title;
@@ -150,4 +150,78 @@ public class Job{
     public Job() {
     }
 
+    protected Job(Parcel in) {
+        city = in.readString();
+        objectId = in.readString();
+        title = in.readString();
+        created = (java.util.Date) in.readValue(java.util.Date.class.getClassLoader());
+        expirationDate = (java.util.Date) in.readValue(java.util.Date.class.getClassLoader());
+        max_salary = in.readByte() == 0x00 ? null : in.readInt();
+        salary = in.readByte() == 0x00 ? null : in.readInt();
+        updated = (java.util.Date) in.readValue(java.util.Date.class.getClassLoader());
+        min_salary = in.readByte() == 0x00 ? null : in.readInt();
+        ownerId = in.readString();
+        description = in.readString();
+        createdBy = in.readString();
+        shortDescription = in.readString();
+        related_users = (java.util.List) in.readValue(java.util.List.class.getClassLoader());
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(city);
+        dest.writeString(objectId);
+        dest.writeString(title);
+        //dest.writeValue(created);
+        //dest.writeValue(expirationDate);
+        dest.writeLong(created.getTime());
+        dest.writeLong(expirationDate.getTime());
+        if (max_salary == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(max_salary);
+        }
+        if (salary == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(salary);
+        }
+        //dest.writeValue(updated);
+        dest.writeLong(updated.getTime());
+        if (min_salary == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(min_salary);
+        }
+        dest.writeString(ownerId);
+        dest.writeString(description);
+        dest.writeString(createdBy);
+        dest.writeString(shortDescription);
+        dest.writeValue(related_users);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Job> CREATOR = new Parcelable.Creator<Job>() {
+        @Override
+        public Job createFromParcel(Parcel in) {
+            Job job = new Job(in);
+            job.created = new Date(in.readLong());
+            job.updated = new Date(in.readLong());
+            job.expirationDate = new Date(in.readLong());
+            return job;
+        }
+
+        @Override
+        public Job[] newArray(int size) {
+            return new Job[size];
+        }
+    };
 }

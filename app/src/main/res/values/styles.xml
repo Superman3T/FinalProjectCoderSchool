@@ -1,4 +1,5 @@
 <resources>
+
     <style name="MyTheme" parent="Base.MyTheme"></style>
 
     <style name="Base.MyTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -46,9 +47,10 @@
         <item name="rippleColor">@android:color/white</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="colorControlNormal">@android:color/white</item>
     </style>
+
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="Widget.CardContent" parent="android:Widget">
@@ -73,12 +75,14 @@
         <item name="tabTextAppearance">@style/MyCustomTabTextAppearance</item>
         <item name="tabSelectedTextColor">?android:textColorPrimary</item>
     </style>
+
     <style name="MyCustomTabTextAppearance" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">?android:textColorSecondary</item>
         <item name="android:textStyle">bold</item>
         <item name="textAllCaps">true</item>
     </style>
+
     <style name="RippleStyleWhite">
         <item name="mrl_rippleOverlay">true</item>
         <item name="mrl_rippleColor">#80FFFFFF</item>
@@ -86,6 +90,7 @@
         <item name="mrl_rippleHover">true</item>
         <item name="mrl_rippleAlpha">0.2</item>
     </style>
+
     <style name="RippleStyleBlack" parent="RippleStyleWhite">
         <item name="mrl_rippleColor">#8096989A</item>
     </style>

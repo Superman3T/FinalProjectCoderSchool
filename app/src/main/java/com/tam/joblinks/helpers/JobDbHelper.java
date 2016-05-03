@@ -187,20 +187,23 @@ public class JobDbHelper extends SQLiteOpenHelper {
     }
 
     public List<Job> getSavedJobs() {
-        String sql = "SELECT * FROM " + TABLE_JOBS + " WHERE " + COL_IS_SAVED + " = 1 AND "
-                + COL_CURRENT_EMAIL + " = " + JobApplication.currentMail;
+//        String sql = "SELECT * FROM " + TABLE_JOBS + " WHERE " + COL_IS_SAVED + " = 1 AND "
+//                + COL_CURRENT_EMAIL + " = '" + JobApplication.currentMail + "'";
+        String sql = "SELECT * FROM " + TABLE_JOBS + " WHERE " + COL_IS_SAVED + " = 1";
         return getJobs(sql);
     }
 
     public List<Job> getViewedJob() {
-        String sql = "SELECT * FROM " + TABLE_JOBS + " WHERE " + COL_IS_VIEWED + " = 1 AND "
-                + COL_CURRENT_EMAIL + " = " + JobApplication.currentMail;
+//        String sql = "SELECT * FROM " + TABLE_JOBS + " WHERE " + COL_IS_VIEWED + " = 1 AND "
+//                + COL_CURRENT_EMAIL + " = '" + JobApplication.currentMail + "'";
+        String sql = "SELECT * FROM " + TABLE_JOBS + " WHERE " + COL_IS_VIEWED + " = 1";
         return getJobs(sql);
     }
 
     public List<Job> getAppliedJob() {
-        String sql = "SELECT * FROM " + TABLE_JOBS + " WHERE " + COL_IS_APPLIED + " = 1 AND "
-                + COL_CURRENT_EMAIL + " = " + JobApplication.currentMail;
+//        String sql = "SELECT * FROM " + TABLE_JOBS + " WHERE " + COL_IS_APPLIED + " = 1 AND "
+//                + COL_CURRENT_EMAIL + " = '" + JobApplication.currentMail + "'";
+        String sql = "SELECT * FROM " + TABLE_JOBS + " WHERE " + COL_IS_APPLIED + " = 1";
         return getJobs(sql);
     }
 

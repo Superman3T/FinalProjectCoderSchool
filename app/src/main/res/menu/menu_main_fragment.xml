@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activities.MainActivity">
+    <item
+        android:id="@+id/item_publish_job"
+        android:orderInCategory="100"
+        android:title="@string/action_publish_job"
+        android:icon="@drawable/ic_menu_create_feed"
+        app:showAsAction="always" />
+</menu>

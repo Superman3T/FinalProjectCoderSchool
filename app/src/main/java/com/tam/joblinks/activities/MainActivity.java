@@ -7,6 +7,8 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.mikepenz.materialdrawer.Drawer;
@@ -22,6 +24,7 @@ import com.tam.joblinks.fragments.JobsFragment;
 import com.tam.joblinks.fragments.MessageFragment;
 import com.tam.joblinks.fragments.ProfileFragment;
 import com.tam.joblinks.helpers.DefaultCallback;
+import com.tam.joblinks.helpers.ProgressDialogCallBack;
 import com.tam.joblinks.helpers.SessionPreferencesHelper;
 import com.tam.joblinks.helpers.StringHelper;
 import com.tam.joblinks.interfaces.UserRepositoryInterface;
@@ -72,6 +75,70 @@ public class MainActivity extends BaseActivity {
         setupViewPager();
         setupTabLayout();
         onTabSelectedIndexChanged();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main_activity, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem register = menu.findItem(R.id.item_register);
+        MenuItem login = menu.findItem(R.id.item_login);
+        MenuItem logout = menu.findItem(R.id.item_logout);
+        boolean isLogined = StringHelper.isNullOrEmpty(JobApplication.currentMail) ? false : true;
+        register.setVisible(!isLogined);
+        login.setVisible(!isLogined);
+        logout.setVisible(isLogined);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.item_save_job: {
+//                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//                builder.setTitle("About");
+//                builder.setMessage(getString(R.string.about_text));
+//                builder.setNeutralButton("OK", null);
+//                builder.show();
+                Intent intent = new Intent(MainActivity.this, JobStatusActivity.class);
+                intent.putExtra(JobApplication.USER_ACTION_JOB, JobApplication.SAVE_JOB);
+                startActivity(intent);
+                return true;
+            }
+            case R.id.item_apply_job: {
+                Intent intent = new Intent(MainActivity.this, JobStatusActivity.class);
+                intent.putExtra(JobApplication.USER_ACTION_JOB, JobApplication.APPLY_JOB);
+                startActivity(intent);
+                return true;
+            }
+            case R.id.item_register: {
+                Intent intent = new Intent(MainActivity.this, RegisterAccountActivity.class);
+                startActivity(intent);
+                return true;
+            }
+            case R.id.item_logout: {
+                this.userRepo.logoutAsync(new ProgressDialogCallBack<Void>(MainActivity.this) {
+                    @Override
+                    public void handleResponse(Void response) {
+                        super.handleResponse(response);
+                        SessionPreferencesHelper session = new SessionPreferencesHelper(MainActivity.this);
+                        session.logoutUser();
+                    }
+                });
+                return true;
+            }
+            case R.id.item_login: {
+                Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(i);
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void setupFAB() {
@@ -127,26 +194,6 @@ public class MainActivity extends BaseActivity {
         PrimaryDrawerItem itemSaveJob = new PrimaryDrawerItem().withName(R.string.drawer_item_saved_job)
                 .withIcon(getResources().getDrawable(R.drawable.ic_nav_saved));
         List<IDrawerItem> items = new ArrayList<>();
-
-//        Drawer result = new DrawerBuilder()
-//                //.withAccountHeader(headerResult)
-//                .withActivity(this)
-//                .withToolbar(toolbar)
-//                .addDrawerItems(
-//                        itemHome,
-//                        new DividerDrawerItem()
-//                        ,
-//                        itemSettings
-//                )
-//                .addDrawerItems()
-//                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-//                    @Override
-//                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-//                        // do something with the clicked item :D
-//                        Toast.makeText(MainActivity.this, ((Nameable) drawerItem).getName().getText(MainActivity.this), Toast.LENGTH_SHORT).show();
-//                        return false;
-//                    }
-//                }).build();
         DrawerBuilder drawerBuilder = new DrawerBuilder()
                 //.withAccountHeader(headerResult)
                 .withActivity(this)

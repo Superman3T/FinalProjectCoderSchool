@@ -1,6 +1,7 @@
 package com.tam.joblinks.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.tam.joblinks.R;
+import com.tam.joblinks.activities.JobDetailsActivity;
 import com.tam.joblinks.helpers.DateHelper;
+import com.tam.joblinks.helpers.JobDbHelper;
 import com.tam.joblinks.models.Job;
 
 import java.util.List;
@@ -19,7 +22,7 @@ import butterknife.ButterKnife;
 /**
  * Created by toan on 4/28/2016.
  */
-public class JobAppliedSavedAdapter  extends RecyclerView.Adapter<JobAppliedSavedAdapter.JobStatusViewHolder> {
+public class JobAppliedSavedAdapter extends RecyclerView.Adapter<JobAppliedSavedAdapter.JobStatusViewHolder> {
 
 
     private List<Job> jobs;
@@ -63,7 +66,7 @@ public class JobAppliedSavedAdapter  extends RecyclerView.Adapter<JobAppliedSave
         return this.jobs.size();
     }
 
-    public class JobStatusViewHolder extends RecyclerView.ViewHolder {
+    public class JobStatusViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @Bind(R.id.tvStatusDescription)
         TextView tvStatusDescription;
@@ -77,6 +80,24 @@ public class JobAppliedSavedAdapter  extends RecyclerView.Adapter<JobAppliedSave
         public JobStatusViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            Context context = v.getContext();
+            int position = getLayoutPosition(); // gets item position
+            Job job = jobs.get(position);
+            Intent intent = new Intent(context, JobDetailsActivity.class);
+
+            intent.putExtra(JobDbHelper.COL_TITLE, job.getTitle());
+            intent.putExtra(JobDbHelper.COL_JOB_CITY, job.getCity());
+            intent.putExtra(JobDbHelper.COL_OBJECT_ID, job.getObjectId());
+            intent.putExtra(JobDbHelper.COL_CREATED_DATE, DateHelper.formatDate(job.getCreated()));
+            intent.putExtra(JobDbHelper.COL_DESCRIPTION, job.getDescription());
+//
+            intent.putExtra(JobDbHelper.COL_CREATED_BY, job.getCreatedBy());
+            context.startActivity(intent);
         }
     }
 }

@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,7 +50,8 @@ public class PublishJobActivity extends BaseActivity {
     @Bind(R.id.btPublishJob)
     Button btPublishJob;
     private View parentView;
-
+    Toolbar toolbar;
+    ActionBar actionbar;
     private JobRepositoryInterface jobRepositoryInterface;
     private UserAndJobInterface userAndJobInterface;
 
@@ -64,29 +65,32 @@ public class PublishJobActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publish_job);
         parentView = findViewById(android.R.id.content);
-        initToolbar();
         initUI();
+        setupToolbar();
         setJobValues();
     }
 
-    private void initToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+    private void setupToolbar() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                Intent returnBtn = new Intent(getApplicationContext(),
-                        MainActivity.class);
-
-                startActivity(returnBtn);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case android.R.id.home:
+////                Intent returnBtn = new Intent(getApplicationContext(),
+////                        MainActivity.class);
+////
+////                startActivity(returnBtn);
+//                finish();
+//                return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
 
     private void initUI() {

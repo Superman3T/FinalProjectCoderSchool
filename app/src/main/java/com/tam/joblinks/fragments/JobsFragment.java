@@ -40,7 +40,7 @@ import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
  * Use the {@link JobsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class JobsFragment extends Fragment {
+public class JobsFragment extends BaseFragment {
 
     @Bind(R.id.rvJobs)
     RecyclerView rvJobs;
@@ -80,7 +80,7 @@ public class JobsFragment extends Fragment {
 
     public static JobsFragment newInstance() {
         JobsFragment fragment = new JobsFragment();
-        return  fragment;
+        return fragment;
     }
 
     @Override
@@ -96,7 +96,8 @@ public class JobsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_jobs, container, false);
+        super.onCreateView(inflater, container, savedInstanceState);
+        this.view = inflater.inflate(R.layout.fragment_jobs, container, false);
         ButterKnife.bind(this, view);
         linearLayout = new LinearLayoutManager(getActivity());
         return view;
@@ -117,9 +118,6 @@ public class JobsFragment extends Fragment {
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
         rvJobs.addOnScrollListener(new EndlessRecyclerViewScrollListener(linearLayout) {
-
-
-
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
                 getMoreData(page);
@@ -134,26 +132,6 @@ public class JobsFragment extends Fragment {
         getDefaultData();
     }
 
-    private void getMoreData() {
-        try {
-            if (!NetworkHelper.isOnline()) {
-                Toast.makeText(getActivity(), getString(R.string.cannot_connect_internet), Toast.LENGTH_SHORT).show();
-                return;
-            }
-            backendlessCollection.nextPage(new ProgressDialogCollectionCallBack<Job>(getActivity()) {
-                @Override
-                public void handleResponse(BackendlessCollection<Job> nextPageJobs) {
-                    backendlessCollection = nextPageJobs;
-                    addItemstoAdapter(nextPageJobs);
-                    //swipeContainer.setRefreshing(false);
-                    super.handleResponse(nextPageJobs);
-                }
-            });
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
     private void getMoreData(int page) {
         try {
 //            if (!NetworkHelper.isOnline()) {
@@ -165,11 +143,6 @@ public class JobsFragment extends Fragment {
             if (page > 0) {
                 queryOptions.setOffset(JobApplication.PAGESIZE * page);
             }
-//            if (backendlessCollection == null || backendlessCollection.getTotalObjects() == 0) {
-//                queryOptions.setOffset(JobApplication.PAGESIZE);
-//            } else {
-//                queryOptions.setOffset(backendlessCollection.getCurrentPage().size());
-//            }
             BackendlessDataQuery query = new BackendlessDataQuery(queryOptions);
             this.jobRepo.pagingAsync(query, new ProgressDialogCollectionCallBack<Job>(getActivity()) {
                 @Override
@@ -185,7 +158,7 @@ public class JobsFragment extends Fragment {
         }
     }
 
-    private void getDefaultData() {
+    public void getDefaultData() {
         try {
             if (!NetworkHelper.isOnline()) {
                 Toast.makeText(getActivity(), getString(R.string.cannot_connect_internet), Toast.LENGTH_SHORT).show();
@@ -197,11 +170,6 @@ public class JobsFragment extends Fragment {
             QueryOptions queryOptions = new QueryOptions();
             queryOptions.setPageSize(JobApplication.PAGESIZE);
 
-//            if (backendlessCollection == null || backendlessCollection.getTotalObjects() == 0) {
-//                queryOptions.setOffset(JobApplication.PAGESIZE);
-//            } else {
-//                queryOptions.setOffset(backendlessCollection.getCurrentPage().size());
-//            }
             BackendlessDataQuery query = new BackendlessDataQuery(queryOptions);
             this.jobRepo.pagingAsync(query, new ProgressDialogCollectionCallBack<Job>(getActivity()) {
                 @Override
