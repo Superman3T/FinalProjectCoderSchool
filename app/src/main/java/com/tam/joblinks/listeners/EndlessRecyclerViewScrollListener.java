@@ -55,6 +55,9 @@ public abstract class EndlessRecyclerViewScrollListener extends RecyclerView.OnS
     // but first we check if we are waiting for the previous load to finish.
     @Override
     public void onScrolled(RecyclerView view, int dx, int dy) {
+        if (dy <= 0) {
+            return;
+        }
         int lastVisibleItemPosition = 0;
         int totalItemCount = mLayoutManager.getItemCount();
 

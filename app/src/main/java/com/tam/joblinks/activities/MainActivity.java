@@ -1,6 +1,5 @@
 package com.tam.joblinks.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,12 +7,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Display;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
@@ -41,15 +35,17 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity {
 
-
     private FloatingActionButton fab;
     private View parent_view;
     private ActionBar actionbar;
-    private MainPageFragmentAdapter pagerAdapter;
+    private MainPageFragmentAdapter adapter;
     private ProfileFragment profileFragment;
     private JobsFragment jobsFragment;
     private MessageFragment messageFragment;
     private Drawer result = null;
+
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
 
     @Bind(R.id.tabs)
     TabLayout tabLayout;
@@ -60,125 +56,51 @@ public class MainActivity extends BaseActivity {
 //    @Bind(R.id.fabSearch)
 //    FloatingActionButton fabSearch;
 
-    Toolbar toolbar;
     private UserRepositoryInterface userRepo;
 
     public MainActivity() {
         userRepo = new UserRepository(this);
     }
-    private static float getAPIVerison() {
 
-        Float f = null;
-        try {
-            StringBuilder strBuild = new StringBuilder();
-            strBuild.append(android.os.Build.VERSION.RELEASE.substring(0, 2));
-            f = new Float(strBuild.toString());
-        } catch (NumberFormatException e) {
-            Log.e("", "erro ao recuperar a versão da API" + e.getMessage());
-        }
-
-        return f.floatValue();
-    }
-
-    public static void systemBarLolipop(Activity act){
-        if (getAPIVerison() >= 5.0) {
-            Window window = act.getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(act.getResources().getColor(R.color.colorPrimaryDark));
-        }
-    }
-
-    public static int getGridSpanCount(Activity activity) {
-        Display display = activity.getWindowManager().getDefaultDisplay();
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        display.getMetrics(displayMetrics);
-        float screenWidth  = displayMetrics.widthPixels;
-        float cellWidth = activity.getResources().getDimension(R.dimen.recycler_item_size);
-        return Math.round(screenWidth / cellWidth);
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
         ButterKnife.bind(this);
-        initToolbar();
+        setupToolbar();
+        setupFAB();
+        setupViewPager();
+        setupTabLayout();
+        onTabSelectedIndexChanged();
+    }
 
-//        buildDrawnerMenu(toolbar);
-        addTabs();
-        addTabIcons();
-        setupTabClick();
-
-//        fabSearch.setOnClickListener(new View.OnClickListener() {
+    private void setupFAB() {
+        //        fabSearch.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //                showToast("pp");
 //            }
 //        });
-//        systemBarLolipop(this);
-        setupViewPager(viewPager);
+    }
 
+    private void setupTabLayout() {
         tabLayout.setupWithViewPager(viewPager);
-
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-
-                viewPager.setCurrentItem(tab.getPosition());
-
-                switch (tab.getPosition()) {
-                    case 0:
-                        showToast("One");
-                        break;
-                    case 1:
-                        showToast("Two");
-
-                        break;
-                    case 2:
-                        showToast("Three");
-
-                        break;
-                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+        adapter.setTabIcons(tabLayout);
     }
 
-    private void initToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+    private void setupToolbar() {
         setSupportActionBar(toolbar);
-//        actionbar = getSupportActionBar();
-//        actionbar.setDisplayHomeAsUpEnabled(false);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(false);
     }
 
-    private void setupViewPager(ViewPager viewPager) {
-        //        profileFragment = ProfileFragment.newInstance();
-//        jobsFragment = JobsFragment.newInstance();
-//        messageFragment = MessageFragment.newInstance();
-        MainPageFragmentAdapter adapter = new MainPageFragmentAdapter(getSupportFragmentManager(), this);
-        adapter.addFragment(JobsFragment.newInstance(), "CAT");
-        adapter.addFragment(MessageFragment.newInstance(), "DOG");
-        adapter.addFragment(ProfileFragment.newInstance(), "MOUSE");
+    private void setupViewPager() {
+        adapter = new MainPageFragmentAdapter(getSupportFragmentManager(), this);
+        adapter.addFragment(JobsFragment.newInstance(), getString(R.string.tab_home));
+        adapter.addFragment(ProfileFragment.newInstance(), getString(R.string.tab_message));
+        adapter.addFragment(ProfileFragment.newInstance(), getString(R.string.tab_profile));
         viewPager.setAdapter(adapter);
+        viewPager.setCurrentItem(0);
     }
 
     private void buildDrawnerMenu(Toolbar toolbar) {
@@ -298,29 +220,13 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    private void addTabs() {
-//        pagerAdapter = new MainPageFragmentAdapter(getSupportFragmentManager(), MainActivity.this);
-//        profileFragment = ProfileFragment.newInstance();
-//        jobsFragment = JobsFragment.newInstance();
-//        messageFragment = MessageFragment.newInstance();
-//        pagerAdapter.addFragment(jobsFragment, getString(R.string.tab_home));
-//        pagerAdapter.addFragment(messageFragment, getString(R.string.tab_message));
-//        pagerAdapter.addFragment(profileFragment, getString(R.string.tab_profile));
-//        viewPager.setAdapter(pagerAdapter);
-//        tabLayout.setupWithViewPager(viewPager);
-    }
-
-    private void addTabIcons() {
-//        pagerAdapter.setTabIcons(tabLayout);
-    }
-
-    private void setupTabClick() {
+    private void onTabSelectedIndexChanged() {
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 int position = tab.getPosition();
                 viewPager.setCurrentItem(position);
-                actionbar.setTitle(pagerAdapter.getTitle(position));
+                actionbar.setTitle(adapter.getTitle(position));
             }
 
             @Override

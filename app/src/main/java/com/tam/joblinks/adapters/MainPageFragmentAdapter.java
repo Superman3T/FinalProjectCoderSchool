@@ -39,6 +39,12 @@ public class MainPageFragmentAdapter extends SmartFragmentStatePagerAdapter {
         fragmentTitles.add(title);
     }
 
+    public void addFragment(Fragment fragment, String title, String icon) {
+        fragments.add(fragment);
+        fragmentTitles.add(title);
+        //tabLayout.getTabAt(i).setCustomView(getTabView(i));
+    }
+
     //https://guides.codepath.com/android/sliding-tabs-with-pagerslidingtabstrip
 
     @Override
@@ -73,4 +79,5 @@ public class MainPageFragmentAdapter extends SmartFragmentStatePagerAdapter {
             tabLayout.getTabAt(i).setCustomView(getTabView(i));
         }
     }
+
 }

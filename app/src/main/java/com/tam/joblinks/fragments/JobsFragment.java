@@ -117,9 +117,12 @@ public class JobsFragment extends Fragment {
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
         rvJobs.addOnScrollListener(new EndlessRecyclerViewScrollListener(linearLayout) {
+
+
+
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-                getMoreData();
+                getMoreData(page);
             }
         });
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -144,6 +147,37 @@ public class JobsFragment extends Fragment {
                     addItemstoAdapter(nextPageJobs);
                     //swipeContainer.setRefreshing(false);
                     super.handleResponse(nextPageJobs);
+                }
+            });
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void getMoreData(int page) {
+        try {
+//            if (!NetworkHelper.isOnline()) {
+//                Toast.makeText(getActivity(), getString(R.string.cannot_connect_internet), Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+            QueryOptions queryOptions = new QueryOptions();
+            queryOptions.setPageSize(JobApplication.PAGESIZE);
+            if (page > 0) {
+                queryOptions.setOffset(JobApplication.PAGESIZE * page);
+            }
+//            if (backendlessCollection == null || backendlessCollection.getTotalObjects() == 0) {
+//                queryOptions.setOffset(JobApplication.PAGESIZE);
+//            } else {
+//                queryOptions.setOffset(backendlessCollection.getCurrentPage().size());
+//            }
+            BackendlessDataQuery query = new BackendlessDataQuery(queryOptions);
+            this.jobRepo.pagingAsync(query, new ProgressDialogCollectionCallBack<Job>(getActivity()) {
+                @Override
+                public void handleResponse(BackendlessCollection<Job> jobsBackendlessCollection) {
+                    backendlessCollection = jobsBackendlessCollection;
+                    addItemstoAdapter(jobsBackendlessCollection);
+                    swipeContainer.setRefreshing(false);
+                    super.handleResponse(jobsBackendlessCollection);
                 }
             });
         } catch (Exception ex) {
