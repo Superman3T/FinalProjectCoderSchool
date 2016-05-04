@@ -33,7 +33,7 @@ import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
  * Use the {@link MessageFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MessageFragment extends Fragment {
+public class MessageFragment extends BaseFragment {
 
 
     @Bind(R.id.rvMessages)
@@ -70,7 +70,8 @@ public class MessageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_message, container, false);
+        super.onCreateView(inflater, container, savedInstanceState);
+        this.view = inflater.inflate(R.layout.fragment_message, container, false);
         ButterKnife.bind(this, view);
         linearLayout = new LinearLayoutManager(getActivity());
         return view;
@@ -93,7 +94,7 @@ public class MessageFragment extends Fragment {
         rvMessages.addOnScrollListener(new EndlessRecyclerViewScrollListener(linearLayout) {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-                getMoreData();
+                getMoreData(page);
             }
         });
         swipeContainerMessage.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -105,11 +106,11 @@ public class MessageFragment extends Fragment {
         getDefaultData();
     }
 
-    private void getMoreData() {
+    public void getDefaultData() {
+
     }
 
-
-    private void getDefaultData() {
+    public void getMoreData(int page) {
 
     }
 }

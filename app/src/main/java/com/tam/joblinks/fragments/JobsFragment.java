@@ -19,10 +19,12 @@ import com.tam.joblinks.adapters.JobsAdapter;
 import com.tam.joblinks.applications.JobApplication;
 import com.tam.joblinks.helpers.NetworkHelper;
 import com.tam.joblinks.helpers.ProgressDialogCollectionCallBack;
+import com.tam.joblinks.helpers.StringHelper;
 import com.tam.joblinks.interfaces.JobRepositoryInterface;
 import com.tam.joblinks.interfaces.UserRepositoryInterface;
 import com.tam.joblinks.listeners.EndlessRecyclerViewScrollListener;
 import com.tam.joblinks.models.Job;
+import com.tam.joblinks.models.JobFilter;
 import com.tam.joblinks.repositories.JobRepository;
 import com.tam.joblinks.repositories.UserRepository;
 
@@ -53,10 +55,14 @@ public class JobsFragment extends BaseFragment {
     private JobRepositoryInterface jobRepo;
     private BackendlessCollection<Job> backendlessCollection;
     private ArrayList<Job> totalJobs = new ArrayList<>();
-
+    private JobFilter jobFilter;
     private JobsAdapter adapter;
 
     private LinearLayoutManager linearLayout;
+    private String whereClause;
+    public void setWhereClause(String whereClause) {
+        this.whereClause = whereClause;
+    }
 
     public JobsFragment() {
         // Required empty public constructor
@@ -73,10 +79,15 @@ public class JobsFragment extends BaseFragment {
      * @return A new instance of fragment JobsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static JobsFragment newInstance(String param1, String param2) {
-        JobsFragment fragment = new JobsFragment();
-        return fragment;
-    }
+//    public static JobsFragment newInstance(JobFilter filter) {
+//        JobsFragment fragment = new JobsFragment();
+//        if (filter != null) {
+//            Bundle args = new Bundle();
+//            args.putParcelable(JobFilter.class.getSimpleName(), filter);
+//            fragment.setArguments(args);
+//        }
+//        return fragment;
+//    }
 
     public static JobsFragment newInstance() {
         JobsFragment fragment = new JobsFragment();
@@ -87,8 +98,9 @@ public class JobsFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
+//            jobFilter = getArguments().getParcelable(JobFilter.class.getSimpleName());
+////            mParam1 = getArguments().getString(ARG_PARAM1);
+////            mParam2 = getArguments().getString(ARG_PARAM2);
 //        }
     }
 
@@ -102,6 +114,7 @@ public class JobsFragment extends BaseFragment {
         linearLayout = new LinearLayoutManager(getActivity());
         return view;
     }
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -132,7 +145,7 @@ public class JobsFragment extends BaseFragment {
         getDefaultData();
     }
 
-    private void getMoreData(int page) {
+    public void getMoreData(int page) {
         try {
 //            if (!NetworkHelper.isOnline()) {
 //                Toast.makeText(getActivity(), getString(R.string.cannot_connect_internet), Toast.LENGTH_SHORT).show();
@@ -144,6 +157,10 @@ public class JobsFragment extends BaseFragment {
                 queryOptions.setOffset(JobApplication.PAGESIZE * page);
             }
             BackendlessDataQuery query = new BackendlessDataQuery(queryOptions);
+//            String whereClause = "name = 'Jack Daniels'";
+            if (StringHelper.isNullOrEmpty(this.whereClause)) {
+                query.setWhereClause(this.whereClause);
+            }
             this.jobRepo.pagingAsync(query, new ProgressDialogCollectionCallBack<Job>(getActivity()) {
                 @Override
                 public void handleResponse(BackendlessCollection<Job> jobsBackendlessCollection) {
@@ -171,6 +188,9 @@ public class JobsFragment extends BaseFragment {
             queryOptions.setPageSize(JobApplication.PAGESIZE);
 
             BackendlessDataQuery query = new BackendlessDataQuery(queryOptions);
+            if (StringHelper.isNullOrEmpty(this.whereClause)) {
+                query.setWhereClause(whereClause);
+            }
             this.jobRepo.pagingAsync(query, new ProgressDialogCollectionCallBack<Job>(getActivity()) {
                 @Override
                 public void handleResponse(BackendlessCollection<Job> jobsBackendlessCollection) {

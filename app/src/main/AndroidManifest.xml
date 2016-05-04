@@ -37,14 +37,14 @@
         <activity
             android:name=".activities.MainActivity"
             android:configChanges="orientation|screenSize"
-            android:label="@string/title_activity_main"></activity>
+            android:label="@string/title_activity_main" />
         <activity
             android:name=".activities.PublishJobActivity"
             android:label="@string/title_activity_publish_job"
             android:parentActivityName=".activities.MainActivity" />
         <activity
             android:name=".activities.JobStatusActivity"
-            android:parentActivityName=".activities.MainActivity"></activity>
+            android:parentActivityName=".activities.MainActivity" />
         <activity
             android:name=".activities.JobDetailsActivity"
             android:label="@string/title_activity_job_details"
@@ -54,6 +54,10 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
+        <activity
+            android:name=".activities.JobManagementActivity"
+            android:label="@string/title_activity_job_management"
+            android:theme="@style/MyTheme"></activity>
     </application>
 
 </manifest>

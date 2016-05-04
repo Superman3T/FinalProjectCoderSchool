@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
@@ -56,8 +57,8 @@ public class MainActivity extends BaseActivity {
     @Bind(R.id.viewpager)
     ViewPager viewPager;
 
-//    @Bind(R.id.fabSearch)
-//    FloatingActionButton fabSearch;
+    @Bind(R.id.fabSearchJob)
+    FloatingActionButton fabSearchJob;
 
     private UserRepositoryInterface userRepo;
 
@@ -142,12 +143,32 @@ public class MainActivity extends BaseActivity {
     }
 
     private void setupFAB() {
-        //        fabSearch.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
+        fabSearchJob.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 //                showToast("pp");
-//            }
-//        });
+                boolean wrapInScrollView = true;
+                new MaterialDialog.Builder(MainActivity.this)
+                        .title(R.string.job_search)
+                        .customView(R.layout.layout_search_job, wrapInScrollView)
+                        .positiveText(R.string.prompt_search)
+                        .negativeText(R.string.close)
+//                        .onNegative(new MaterialDialog.SingleButtonCallback() {
+//                            @Override
+//                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+//                                finish();
+//                            }
+//                        })
+                        .show();
+//
+//                .setNegativeButton(R.string.OK, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss();
+//                    }
+//                })
+            }
+        });
     }
 
     private void setupTabLayout() {
@@ -163,11 +184,12 @@ public class MainActivity extends BaseActivity {
 
     private void setupViewPager() {
         adapter = new MainPageFragmentAdapter(getSupportFragmentManager(), this);
-        adapter.addFragment(JobsFragment.newInstance(), getString(R.string.tab_home));
-        adapter.addFragment(ProfileFragment.newInstance(), getString(R.string.tab_message));
-        adapter.addFragment(ProfileFragment.newInstance(), getString(R.string.tab_profile));
+        adapter.addFragment(JobsFragment.newInstance(), getString(R.string.tab_home), MainPageFragmentAdapter.TAB_JOB_ICON);
+        adapter.addFragment(MessageFragment.newInstance(), getString(R.string.tab_message), MainPageFragmentAdapter.TAB_MESSAGE_ICON);
+        adapter.addFragment(ProfileFragment.newInstance(), getString(R.string.tab_profile), MainPageFragmentAdapter.TAB_PROFILE_ICON);
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(0);
+        viewPager.setOffscreenPageLimit(adapter.getCount());
     }
 
     private void buildDrawnerMenu(Toolbar toolbar) {

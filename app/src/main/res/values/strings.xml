@@ -96,5 +96,8 @@
     <string name="title_activity_job_details">Job Details</string>
     <string name="details">Details</string>
     <string name="action_publish_job">Publish Job</string>
+    <string name="job_search">Job Search</string>
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_job_management">JobManagementActivity</string>
+    <string name="close">Close</string>
 </resources>

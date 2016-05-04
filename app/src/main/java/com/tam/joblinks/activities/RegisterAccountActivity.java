@@ -56,7 +56,7 @@ public class RegisterAccountActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_account);
         ButterKnife.bind(this);
-        initToolbar();
+//        initToolbar();
 //        tvHomePage.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

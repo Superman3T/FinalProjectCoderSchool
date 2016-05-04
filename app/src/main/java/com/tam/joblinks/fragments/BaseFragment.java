@@ -53,4 +53,5 @@ public abstract class BaseFragment extends Fragment {
         setHasOptionsMenu(true);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
+
 }

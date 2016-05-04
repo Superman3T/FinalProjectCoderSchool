@@ -20,13 +20,18 @@ public class MainPageFragmentAdapter extends SmartFragmentStatePagerAdapter {
 
     private final List<Fragment> fragments = new ArrayList<>();
     private final List<String> fragmentTitles = new ArrayList<>();
-    private static int[] imageResId = {
-            R.drawable.tab_jobs,
-            R.drawable.tab_notif,
-            R.drawable.tab_profile,
-            R.drawable.tab_chat,
-            R.drawable.tab_friend
-    };
+    private final List<Integer> icons = new ArrayList<>();
+    //    private static int[] imageResId = {
+//            R.drawable.tab_jobs,
+//            R.drawable.tab_notification,
+//            R.drawable.tab_message,
+//            R.drawable.tab_profile
+//    };
+    public final static int TAB_JOB_ICON = R.drawable.tab_jobs;
+    public final static int TAB_NOTIFICATION_ICON = R.drawable.tab_notification;
+    public final static int TAB_MESSAGE_ICON = R.drawable.tab_message;
+    public final static int TAB_PROFILE_ICON = R.drawable.tab_profile;
+
     Context context;
 
     public MainPageFragmentAdapter(FragmentManager fm, Context context) {
@@ -34,14 +39,10 @@ public class MainPageFragmentAdapter extends SmartFragmentStatePagerAdapter {
         this.context = context;
     }
 
-    public void addFragment(Fragment fragment, String title) {
+    public void addFragment(Fragment fragment, String title, int iconResId) {
         fragments.add(fragment);
         fragmentTitles.add(title);
-    }
-
-    public void addFragment(Fragment fragment, String title, String icon) {
-        fragments.add(fragment);
-        fragmentTitles.add(title);
+        icons.add(iconResId);
         //tabLayout.getTabAt(i).setCustomView(getTabView(i));
     }
 
@@ -70,7 +71,8 @@ public class MainPageFragmentAdapter extends SmartFragmentStatePagerAdapter {
         // Given you have a custom layout in `res/layout/custom_tab.xml` with a TextView and ImageView
         View v = LayoutInflater.from(context).inflate(R.layout.custom_tab_item, null);
         ImageView img = (ImageView) v.findViewById(R.id.ivTabIcon);
-        img.setImageResource(imageResId[position]);
+        //img.setImageResource(imageResId[position]);
+        img.setImageResource(icons.get(position));
         return v;
     }
 

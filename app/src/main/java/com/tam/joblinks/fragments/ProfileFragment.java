@@ -18,7 +18,7 @@ import com.tam.joblinks.R;
  * Use the {@link ProfileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends BaseFragment {
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -38,7 +38,17 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        super.onCreateView(inflater, container, savedInstanceState);
+        this.view = inflater.inflate(R.layout.fragment_profile, container, false);
+        return view;
+    }
+
+    public void getMoreData(int page) {
+
+    }
+
+    public void getDefaultData() {
+
     }
 
 }
